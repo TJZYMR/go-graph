@@ -1,10 +1,8 @@
 package main
 
-import (
-	"y/pattern"
-)
+import "y/pattern"
 
 func main() {
-	//pattern.M()
 	pattern.M()
+	//pattern1.W()
 }

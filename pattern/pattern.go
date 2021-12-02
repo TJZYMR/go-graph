@@ -5,6 +5,8 @@ import (
 	"strconv"
 	"y/utils"
 
+	"y/plotting_main"
+
 	"gonum.org/v1/plot"
 	"gonum.org/v1/plot/plotter"
 	"gonum.org/v1/plot/plotutil"
@@ -18,7 +20,7 @@ import (
 // }
 
 func M() {
-	up, down := findtrend()
+	up, down := utils.Findtrendm()
 	fmt.Println(up)
 	fmt.Println(down)
 	//pattern finding for M starts........
@@ -34,14 +36,14 @@ func M() {
 	p.Y.Label.Text = "Y"
 
 	err := plotutil.AddLinePoints(p,
-		"First", randomPoints(pts))
+		"First", plotting_main.RandomPoints(pts))
 
 	if err != nil {
 		panic(err)
 	}
 	p.Add(plotter.NewGrid())
 	plotter.DefaultLineStyle.Width = vg.Points(2)
-	plotutil.AddLinePoints(p, "Pattern M", linepoints(draw))
+	plotutil.AddLinePoints(p, "Pattern M", plotting_main.Linepoints(draw))
 	// Save the plot to a PNG file.
 	if err := p.Save(4*vg.Inch, 4*vg.Inch, "M.png"); err != nil {
 		panic(err)
@@ -50,56 +52,6 @@ func M() {
 	//pattern finding for W starts........
 }
 
-// 	}
-
-//2.1)find upward trend opto some point, mark the point from where there are no two consequetive keys.
-//task:checking for consecutive keys.type XYs []XY
-type XY struct{ X, Y float64 }
-
-func linepoints(x [][]int) plotter.XYer {
-	//pts := make([]plotter.XYer, 3)
-	pts := make(plotter.XYs, len(x))
-
-	for i := range x {
-		pts[i].X = float64(x[i][0])
-		pts[i].Y = float64(x[i][1])
-	}
-	return pts
-}
-func randomPoints(x [][]int) plotter.XYs {
-	pts := make(plotter.XYs, len(x))
-
-	for i := range x {
-		pts[i].X = float64(x[i][0])
-		pts[i].Y = float64(x[i][1])
-	}
-	return pts
-}
-func findtrend() (up1, down1 map[int]int) {
-	up := make(map[int]int)
-	down := make(map[int]int)
-	points := [][]int{{11, 100}, {12, 200}, {13, 700}, {14, 1100}, {15, 800}, {16, 500}, {17, 200}, {18, 400}, {19, 700}, {20, 350}, {21, 210}, {22, 310}, {23, 400}, {24, 450}, {25, 500}, {26, 800}, {27, 1000}}
-	fmt.Println(points) //x,y pairs
-	for i := range points {
-		if points[i][1] < points[i+1][1] {
-			if points[i+1][1] != points[len(points)-1][1] {
-				fmt.Println("Updward Trend from: " + strconv.Itoa(points[i][1]) + " to " + strconv.Itoa(points[i+1][1]))
-				//fmt.Println(points[i])
-				up[len(points[:i])] = points[i][1]
-
-			} else {
-				break //neglecting the last point if otherwise want reapete the above code.
-			}
-		} else {
-			fmt.Println("Downward Trend from: " + strconv.Itoa(points[i][1]) + " to " + strconv.Itoa(points[i+1][1]))
-			down[len(points[:i])] = points[i][1]
-
-		}
-		//for w pattern woulbe be too points up ,two down and one in between.
-
-	}
-	return up, down
-}
 func patternM(pts [][]int, up, down map[int]int) (p [][]int) {
 
 	samepoints := make(map[int]int)

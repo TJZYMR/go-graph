@@ -1,4 +1,4 @@
-package plottingmain
+package plotting_main
 
 import (
 	"gonum.org/v1/plot"
@@ -44,7 +44,6 @@ func plot1() {
 }
 
 type XYs []XY
-type XY struct{ X, Y float64 }
 
 func linepoints() plotter.XYer {
 	//pts := make([]plotter.XYer, 3)

@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"strconv"
 
+	"y/plotting_main"
 	"y/utils"
 
 	"gonum.org/v1/plot"
@@ -13,7 +14,7 @@ import (
 )
 
 func W() {
-	up, down := findtrend()
+	up, down := utils.Findtrendw()
 	fmt.Println("Updward: ", up)
 	fmt.Println("downward: ", down)
 	pts := [][]int{{11, 100}, {12, 200}, {13, 700}, {14, 1100}, {15, 800}, {16, 500}, {17, 200}, {18, 400}, {19, 700}, {20, 350}, {21, 200}, {22, 310}, {23, 400}, {24, 450}, {25, 500}, {26, 800}, {27, 1000}}
@@ -27,66 +28,19 @@ func W() {
 	p.Y.Label.Text = "Y"
 
 	err := plotutil.AddLinePoints(p,
-		"First", randomPoints(pts))
+		"First", plotting_main.RandomPoints(pts))
 
 	if err != nil {
 		panic(err)
 	}
 	p.Add(plotter.NewGrid())
 	plotter.DefaultLineStyle.Width = vg.Points(2)
-	plotutil.AddLinePoints(p, "Pattern W", linepoints(draw))
+	plotutil.AddLinePoints(p, "Pattern W", plotting_main.Linepoints(draw))
 	// Save the plot to a PNG file.
 	if err := p.Save(4*vg.Inch, 4*vg.Inch, "W.png"); err != nil {
 		panic(err)
 	} //plotting finished For M	Pattern
 
-}
-func linepoints(x [][]int) plotter.XYer {
-	//pts := make([]plotter.XYer, 3)
-	pts := make(plotter.XYs, len(x))
-
-	for i := range x {
-		pts[i].X = float64(x[i][0])
-		pts[i].Y = float64(x[i][1])
-	}
-	return pts
-}
-func randomPoints(x [][]int) plotter.XYs {
-	pts := make(plotter.XYs, len(x))
-
-	for i := range x {
-		pts[i].X = float64(x[i][0])
-		pts[i].Y = float64(x[i][1])
-	}
-	return pts
-}
-func findtrend() (up1, down1 map[int]int) {
-	up := make(map[int]int)
-	down := make(map[int]int)
-	points := [][]int{{11, 100}, {12, 200}, {13, 700}, {14, 1100}, {15, 800}, {16, 500}, {17, 200}, {18, 400}, {19, 700}, {20, 350}, {21, 200}, {22, 310}, {23, 400}, {24, 450}, {25, 500}, {26, 800}, {27, 1000}}
-	fmt.Println(points) //x,y pairs
-	for i := range points {
-		if points[i][1] < points[i+1][1] {
-			if points[i+1][1] != points[len(points)-1][1] {
-				fmt.Println("Updward Trend from: " + strconv.Itoa(points[i][1]) + " to " + strconv.Itoa(points[i+1][1]))
-				//fmt.Println(points[i])
-				up[len(points[:i])] = points[i][1]
-
-			} else if points[i+1][1] == points[len(points)-1][1] {
-				fmt.Println("Updward Trend from: " + strconv.Itoa(points[i][1]) + " to " + strconv.Itoa(points[i+1][1]))
-				//fmt.Println(points[i])
-				up[len(points[:i+1])] = points[i+1][1]
-				//neglecting the last point if otherwise want reapete the above code.
-				break
-			}
-		} else {
-			fmt.Println("Downward Trend from: " + strconv.Itoa(points[i][1]) + " to " + strconv.Itoa(points[i+1][1]))
-			down[len(points[:i])] = points[i][1]
-
-		}
-
-	}
-	return up, down
 }
 
 func patternW(pts [][]int, up, down map[int]int) (d [][]int) {
@@ -203,7 +157,6 @@ func patternW(pts [][]int, up, down map[int]int) (d [][]int) {
 	fmt.Println(e1)
 	fmt.Println("Points' Indexes are", start, e1[len(e1)-1])
 	fmt.Println("Points' Values are", pts[start], pts[e1[len(e1)-1]])
-	//fmt.Println("Peaks are", peak1, ":", pts[peak1], peak2, ":", pts[peak2])
 
 	for i := range pts {
 		if i >= start && e1[len(e1)-1] >= i {
