@@ -26,8 +26,8 @@ func M() {
 	//pattern finding for M starts........
 	//1)find three same y points
 	pts := [][]int{{11, 100}, {12, 200}, {13, 700}, {14, 1100}, {15, 800}, {16, 500}, {17, 200}, {18, 400}, {19, 700}, {20, 350}, {21, 200}, {22, 310}, {23, 400}, {24, 450}, {25, 500}, {26, 800}, {27, 1000}}
-	draw := patternM(pts, up, down) //1)return array of inbetwwen points from this funcion
-	fmt.Println(draw)
+	draw, f := patternM(pts, up, down) //1)return array of inbetwwen points from this funcion
+	fmt.Println(draw, f)
 	//2)plotting from returened points from above functions
 	p := plot.New()
 
@@ -52,7 +52,8 @@ func M() {
 	//pattern finding for W starts........
 }
 
-func patternM(pts [][]int, up, down map[int]int) (p [][]int) {
+func patternM(pts [][]int, up, down map[int]int) (p [][]int, f bool) {
+	var b bool = false
 
 	samepoints := make(map[int]int)
 	for index, _ := range pts {
@@ -170,6 +171,14 @@ func patternM(pts [][]int, up, down map[int]int) (p [][]int) {
 		}
 
 	}
-	return draw
+
+	// if b == true {
+	// 	return draw, b
+	// } else {
+	// 	fmt.Println("No M shape is formed")
+	// 	return draw, false
+
+	// }
+	return draw, b
 
 }

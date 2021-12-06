@@ -1,4 +1,4 @@
-package plotting_main
+package main
 
 import (
 	"gonum.org/v1/plot"
@@ -7,15 +7,7 @@ import (
 	"gonum.org/v1/plot/vg"
 )
 
-type XYer interface {
-	// Len returns the number of x, y pairs.
-	Len() int
-
-	// XY returns an x, y pair.
-	XY(int) (x, y float64)
-}
-
-func plot1() {
+func main() {
 	//rand.Seed(int64(0))
 
 	p := plot.New()
@@ -32,7 +24,7 @@ func plot1() {
 	}
 	p.Add(plotter.NewGrid())
 	//p.BackgroundColor.RGBA()
-	plotter.DefaultLineStyle.Width = vg.Points(3)
+	//plotter.DefaultLineStyle.Width = vg.Points(2)
 	// if pattern() == "M" {
 	// 	plotutil.AddLinePoints(p, "Pattern M", linepoints())
 	//3)this is for printing the pattern on to the screen after pattern matching.
@@ -43,7 +35,7 @@ func plot1() {
 	}
 }
 
-type XYs []XY
+//type XYs []XY
 
 func linepoints() plotter.XYer {
 	//pts := make([]plotter.XYer, 3)
@@ -84,23 +76,23 @@ func randomPoints() plotter.XYs {
 	pts[15].X = 26
 	pts[16].X = 27
 
-	pts[0].Y = 100
-	pts[1].Y = 200
-	pts[2].Y = 700
-	pts[3].Y = 1100
-	pts[4].Y = 800
-	pts[5].Y = 500
-	pts[6].Y = 200
-	pts[7].Y = 400
-	pts[8].Y = 700
-	pts[9].Y = 350
-	pts[10].Y = 210
-	pts[11].Y = 310
-	pts[12].Y = 400
-	pts[13].Y = 450
-	pts[14].Y = 500
-	pts[15].Y = 800
-	pts[16].Y = 1000
+	pts[0].Y = 697
+	pts[1].Y = 703
+	pts[2].Y = 692
+	pts[3].Y = 710
+	pts[4].Y = 736
+	pts[5].Y = 745
+	pts[6].Y = 736
+	pts[7].Y = 756
+	pts[8].Y = 785
+	pts[9].Y = 811
+	pts[10].Y = 795
+	pts[11].Y = 785
+	pts[12].Y = 787
+	pts[13].Y = 801
+	pts[14].Y = 838
+	pts[15].Y = 826
+	pts[16].Y = 801
 
 	return pts
 }
