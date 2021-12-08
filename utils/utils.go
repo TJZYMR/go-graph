@@ -2,7 +2,14 @@ package utils
 
 import (
 	"fmt"
+	"image/color"
 	"strconv"
+	"y/plotting_main"
+
+	"gonum.org/v1/plot"
+	"gonum.org/v1/plot/plotter"
+	"gonum.org/v1/plot/plotutil"
+	"gonum.org/v1/plot/vg"
 )
 
 func Findconsquetive(m map[int]int) (keys []int) {
@@ -76,4 +83,39 @@ func Findtrendm() (up1, down1 map[int]int) {
 
 	}
 	return up, down
+}
+func Plot1(t [][]int, count int, a []int, b []int) {
+	//rand.Seed(int64(0))
+
+	p := plot.New()
+
+	p.Title.Text = "Graph Problem"
+	p.X.Label.Text = "X"
+	p.Y.Label.Text = "Y"
+
+	err := plotutil.AddLinePoints(p,
+		"First", plotting_main.RandomPoints(t))
+
+	if err != nil {
+		panic(err)
+	}
+	p.Add(plotter.NewGrid())
+	//p.BackgroundColor.RGBA()
+	plotter.DefaultLineStyle.Width = vg.Points(2)
+	for i := 0; i < count; i++ {
+		plotter.DefaultLineStyle.Color = color.RGBA{B: 255, A: 255}
+		plotter.DefaultLineStyle.Width = vg.Points(2.5)
+
+		plotutil.AddLinePoints(p, "Pattern M", plotting_main.Linepoints(t[a[i]:b[i]]))
+
+	}
+
+	// if pattern() == "M" {
+	// 	plotutil.AddLinePoints(p, "Pattern M", linepoints())
+	//3)this is for printing the pattern on to the screen after pattern matching.
+	// }
+
+	if err := p.Save(16*vg.Inch, 16*vg.Inch, "points.png"); err != nil {
+		panic(err)
+	}
 }
