@@ -1,6 +1,6 @@
 1.verb and proper noun=>function,struct
 2.prepare generic input taking structure with all code for csv,excel,database,json.
-3.extend your code for matching patterns circles and semi-circles.
+3.extend your code for matching patterns inverted semi-circles and semi-circles.
 4.Match Pattern D and B like patterns after all the other steps
 5.plan,manage and assume when your code will finish and then let mahendra know when can he review the code.
 6.Make Project Modularized.
