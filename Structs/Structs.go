@@ -137,4 +137,4 @@ func (l *Letterw) Pattern() ([]int, []int, int, bool) {
 func Find(P Patterns) ([]int, []int, int, bool) {
 	a, b, c, d := P.Pattern()
 	return a, b, c, d
-} //end of Find and with this adter that
+} //end of Find and with this adter that dfgfddfdfdf
