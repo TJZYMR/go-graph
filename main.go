@@ -3,7 +3,11 @@ package main
 import (
 	"fmt"
 	"path/filepath"
+	"strconv"
 	"y/Generic"
+	"y/M"
+	"y/Structs_for_patterns"
+	"y/utils"
 )
 
 func main() {
@@ -62,5 +66,15 @@ func main() {
 		fmt.Println("data received:=>", data)
 
 	}
-	fmt.Println(data)
+	var t [][]int
+	for _, v := range data {
+		a, _ := strconv.Atoi(v.Day)
+		b, _ := strconv.Atoi(v.Value)
+		t = append(t, []int{a, b})
+	}
+	p := []string{"Upward", "Downward", "Upward", "Downward"}
+	m := &M.Letterm{t, p}
+	// a, b, c, _ := m.Pattern()
+	a, b, c, _ := Structs_for_patterns.Find(m)
+	utils.Plot1(t, c, a, b)
 }
