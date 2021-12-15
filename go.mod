@@ -15,13 +15,13 @@ require (
 )
 
 require (
-	github.com/fogleman/gg v1.3.0
-	github.com/go-gl/gl v0.0.0-20211025173605-bda47ffaa784 // indirect
-	github.com/go-gl/glfw/v3.3/glfw v0.0.0-20211024062804-40e447a793be // indirect
-	github.com/google/gxui v0.0.0-20151028112939-f85e0a97b3a4
-	github.com/gopherjs/gopherjs v0.0.0-20211111143520-d0d5ecc1a356 // indirect
-	github.com/goxjs/gl v0.0.0-20210104184919-e3fafc6f8f2a // indirect
-	github.com/goxjs/glfw v0.0.0-20191126052801-d2efb5f20838 // indirect
+	github.com/fogleman/gg v1.3.0 // indirect
+	github.com/mohae/deepcopy v0.0.0-20170929034955-c48cc78d4826 // indirect
+	github.com/richardlehane/mscfb v1.0.3 // indirect
+	github.com/richardlehane/msoleps v1.0.1 // indirect
+	github.com/xuri/efp v0.0.0-20210322160811-ab561f5b45e3 // indirect
+	github.com/xuri/excelize/v2 v2.4.1 // indirect
+	golang.org/x/crypto v0.0.0-20210711020723-a769d52b0f97 // indirect
 	golang.org/x/image v0.0.0-20211028202545-6944b10bf410 // indirect
-	honnef.co/go/js/dom v0.0.0-20210725211120-f030747120f2 // indirect
+	golang.org/x/net v0.0.0-20210726213435-c6fcb2dbf985 // indirect
 )
