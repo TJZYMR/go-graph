@@ -1,10 +1,12 @@
 package main
 
 import (
+	"database/sql"
 	"encoding/csv"
 	"fmt"
 	"os"
 
+	_ "github.com/go-sql-driver/mysql"
 	"github.com/xuri/excelize/v2"
 )
 
@@ -61,4 +63,31 @@ func Genericcsv(filepath, sheetname string) []Date {
 }
 
 //3.doing for database file
+func Genericdatabase(port, username, dbname, password string) []Date {
+	db, _ := sql.Open("mysql", username+":"+password+"@tcp("+port+")/"+dbname)
+	// db, _ := sql.Open("mysql", "tatva:zymr@123@tcp(127.0.0.1:3306)/tatva")
+	defer db.Close()
+	ab, _ := db.Query("select * from tatva.date_values")
+	var date []Date
+	type T struct {
+		Tar   string
+		Value string
+	}
+	for ab.Next() {
+		var t T
+		ab.Scan(&t.Tar, &t.Value)
+		date = append(date, Date{Day: t.Tar[:2], Month: t.Tar[3:6], Year: t.Tar[7:11], Value: t.Value})
+	}
+	return date
+}
+
 //4.doing for json file
+func main() {
+
+}
+
+//main file
+// func main() {
+// 	d := Genericdatabase("127.0.0.1:3306", "tatva", "tatva", "zymr@123")
+// 	fmt.Println("here it runs", "\n", d)
+// }
