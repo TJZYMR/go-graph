@@ -3,7 +3,9 @@ package main
 import (
 	"database/sql"
 	"encoding/csv"
+	"encoding/json"
 	"fmt"
+	"io/ioutil"
 	"os"
 
 	_ "github.com/go-sql-driver/mysql"
@@ -82,12 +84,35 @@ func Genericdatabase(port, username, dbname, password string) []Date {
 }
 
 //4.doing for json file
-func main() {
+func Genericjson(filename string) []Date {
+	jsonFile, err := os.Open(filename)
+	// if we os.Open returns an error then handle it
+	if err != nil {
+		fmt.Println(err)
+	}
+	byteValue, _ := ioutil.ReadAll(jsonFile)
+	defer jsonFile.Close()
+	type T struct {
+		Tar   string `json:"Date"`
+		Value int    `json:"Values"`
+	}
+	var t []T
+	json.Unmarshal(byteValue, &t)
+	var date []Date
+	for _, row := range t {
+		date = append(date, Date{Day: row.Tar[:2], Month: row.Tar[3:6], Year: row.Tar[7:11], Value: fmt.Sprintf("%d", row.Value)})
 
+	}
+	return date
 }
 
 //main file
 // func main() {
 // 	d := Genericdatabase("127.0.0.1:3306", "tatva", "tatva", "zymr@123")
 // 	fmt.Println("here it runs", "\n", d)
+// }
+// func main() {
+// 	d := Genericjson("date-values.json")
+// 	fmt.Println("here it runs", "\n", d)
+
 // }
