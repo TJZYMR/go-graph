@@ -1,4 +1,4 @@
-package main
+package Generic
 
 import (
 	"database/sql"
@@ -42,8 +42,8 @@ func Genericexcel(filepath, sheetname string) []Date {
 }
 
 //2.doing for csv file
-func Genericcsv(filepath, sheetname string) []Date {
-	f, err := os.Open("date-values.csv")
+func Genericcsv(filepath string) []Date {
+	f, err := os.Open(filepath)
 	if err != nil {
 		fmt.Println(err)
 
@@ -55,7 +55,7 @@ func Genericcsv(filepath, sheetname string) []Date {
 
 	}
 	csvReader := csv.NewReader(f)
-	records, err := csvReader.ReadAll()
+	records, _ := csvReader.ReadAll()
 	records = records[1:]
 	for _, row := range records {
 		date = append(date, Date{Day: row[0][:2], Month: row[0][3:6], Year: row[0][7:11], Value: row[1]})
