@@ -1,0 +1,2 @@
+1)write index to the struct with date and value , values and then perform pattern finding with every place repalcing index with the original date ,and you are done.
+2)complete semicircle task by today evening before 6.30

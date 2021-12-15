@@ -13,6 +13,7 @@ import (
 )
 
 type Date struct {
+	index int
 	Day   string
 	Month string
 	Year  string

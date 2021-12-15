@@ -3,8 +3,10 @@ package main
 import (
 	"fmt"
 	"path/filepath"
-	"strconv"
 	"y/Generic"
+	"y/M"
+	"y/Structs_for_patterns"
+	"y/utils"
 )
 
 func main() {
@@ -27,7 +29,7 @@ func main() {
 	// var filetype string
 	// var filepath string
 
-	path := "/home/tatva.j@ah.zymrinc.com/Desktop/go-graph/Generic/date-values.csv"
+	path := "/home/tatva.j@ah.zymrinc.com/Desktop/go-graph/Generic/s1.csv"
 	var data []Generic.Date
 	fileExtension := filepath.Ext(path)
 	fmt.Println(fileExtension)
@@ -63,22 +65,23 @@ func main() {
 		fmt.Println("data received:=>", data)
 
 	}
-	type d struct {
-		Date  string
-		Value int
-	}
-	var t []d
-	for _, v := range data {
-		a := v.Day + v.Month + v.Year
-		b, _ := strconv.Atoi(v.Value)
-		t = append(t, d{a, b})
-	}
-	//fmt.Println(t)
-	//1.sending the data so that it will be in searlized form for graph plotting and the pattern matches then 2.we will send the data to the graph plotting function
-
-	// p := []string{"Upward", "Downward", "Upward", "Downward"}
-	// m := &M.Letterm{t, p}
-	// // a, b, c, _ := m.Pattern()
-	// a, b, c, _ := Structs_for_patterns.Find(m)
-	// utils.Plot1(t, c, a, b)
+	//first set t to the accepted data supported by recieving function.
+	//second draw on graph with the help of the recieved data which is in string form.
+	p := []string{"Upward", "Downward", "Upward", "Downward"}
+	m := &M.Letterm{t, p}
+	// a, b, c, _ := m.Pattern()
+	a, b, c, _ := Structs_for_patterns.Find(m)
+	utils.Plot1(t, c, a, b)
 }
+
+//1.sending the data so that it will be in searlized form for graph plotting and the pattern matches then
+
+//2.we will send the data to the graph plotting function
+// randomPoints returns some random x, y points.
+// func randomPoints() plotter.XYs {
+// 	pts := make(plotter.XYs, 1)
+// 	pts[0].X = "11 - nov - 2021"
+// 	pts[0].Y = 1
+
+// 	return pts
+// }
