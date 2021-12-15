@@ -5,9 +5,6 @@ import (
 	"path/filepath"
 	"strconv"
 	"y/Generic"
-	"y/M"
-	"y/Structs_for_patterns"
-	"y/utils"
 )
 
 func main() {
@@ -66,15 +63,22 @@ func main() {
 		fmt.Println("data received:=>", data)
 
 	}
-	var t [][]int
-	for _, v := range data {
-		a, _ := strconv.Atoi(v.Day)
-		b, _ := strconv.Atoi(v.Value)
-		t = append(t, []int{a, b})
+	type d struct {
+		Date  string
+		Value int
 	}
-	p := []string{"Upward", "Downward", "Upward", "Downward"}
-	m := &M.Letterm{t, p}
-	// a, b, c, _ := m.Pattern()
-	a, b, c, _ := Structs_for_patterns.Find(m)
-	utils.Plot1(t, c, a, b)
+	var t []d
+	for _, v := range data {
+		a := v.Day + v.Month + v.Year
+		b, _ := strconv.Atoi(v.Value)
+		t = append(t, d{a, b})
+	}
+	//fmt.Println(t)
+	//1.sending the data so that it will be in searlized form for graph plotting and the pattern matches then 2.we will send the data to the graph plotting function
+
+	// p := []string{"Upward", "Downward", "Upward", "Downward"}
+	// m := &M.Letterm{t, p}
+	// // a, b, c, _ := m.Pattern()
+	// a, b, c, _ := Structs_for_patterns.Find(m)
+	// utils.Plot1(t, c, a, b)
 }
