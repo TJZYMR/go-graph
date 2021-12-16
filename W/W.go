@@ -7,7 +7,7 @@ import (
 )
 
 type Letterw struct {
-	T [][]int
+	T []pattern_up.Date
 	P []string
 }
 

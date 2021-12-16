@@ -5,10 +5,10 @@ import (
 	"fmt"
 	"os"
 	"strconv"
-	"y/M"
 	"y/Structs_for_patterns"
+	"y/W"
 	"y/pattern_up"
-	"y/plotting_main"
+	"y/utils"
 )
 
 // func main() {
@@ -99,14 +99,17 @@ func main() {
 	}
 	// bol := P_up(date)
 	// date1 := []Date{{1, "11-nov-2021", 200}, {2, "12-nov-2021", 200}, {3, "13-nov-2021", 300}, {4, "14-nov-2021", 400}, {5, "15-nov-2021", 500}, {6, "16-nov-2021", 600}, {7, "17-nov-2021", 700}}
-	p := []string{"Upward", "Downward", "Upward", "Downward"}
-	m := &M.Letterm{date, p}
-	// a, b, c, _ := m.Pattern()
-	a, b, c, _ := Structs_for_patterns.Find(m)
-	fmt.Println(a, b, c)
+	// p := []string{"Upward", "Downward", "Upward", "Downward"}
+	// m := &M.Letterm{date, p}
+	// // a, b, c, _ := m.Pattern()
+	// a, b, c, _ := Structs_for_patterns.Find(m)
+	// fmt.Println(a, b, c)
 	// utils.Plot1(date, c, a, b)
-	a2 := plotting_main.Linepoints(date)
-	fmt.Println(a2)
+	p1 := []string{"Downward", "Upward", "Downward", "Upward"}
+	w := &W.Letterw{date, p1}
+	a2, b2, c2, _ := Structs_for_patterns.Find(w)
+	fmt.Println(a2, b2, c2)
+	utils.Plot1(date, c2, a2, b2)
 }
 
 //1.sending the data so that it will be in searlized form for graph plotting and the pattern matches then
