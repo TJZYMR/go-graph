@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"image/color"
 	"strconv"
+	"y/pattern_up"
 	"y/plotting_main"
 
 	"gonum.org/v1/plot"
@@ -84,7 +85,7 @@ func Findtrendm() (up1, down1 map[int]int) {
 	}
 	return up, down
 }
-func Plot1(t [][]int, count int, a []int, b []int) {
+func Plot1(t []pattern_up.Date, count int, a []int, b []int) {
 	//rand.Seed(int64(0))
 
 	p := plot.New()
