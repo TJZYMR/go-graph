@@ -15,6 +15,9 @@ type Lettersemicricle struct {
 	P []string
 }
 
+//changing the method to find peaks and troughs.
+//after matching he pattern upward and then downward
+//then matching starting and ending point's value are same or euivalent and if yes then declaring the points as semicircle.
 func (l *Lettersemicricle) Pattern() ([]int, []int, int, bool) {
 	a := pattern_up.Peaks(l.T)
 	fmt.Println("Peaks =", a)
@@ -55,10 +58,10 @@ func (l *Lettersemicricle) Pattern() ([]int, []int, int, bool) {
 				count = count + 1
 				fmt.Println("Count =", count)
 				fmt.Println("Starting Point =", l.T[i2[i]])
-				fmt.Println("Ending Point =", l.T[i2[i+3]+1])
+				fmt.Println("Ending Point =", l.T[i2[i+1]+1])
 
 				start = append(start, i2[i])
-				end = append(end, i2[i+3+1])
+				end = append(end, i2[i+1+1])
 				bol = true
 
 			}
