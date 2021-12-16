@@ -1,7 +1,6 @@
 package plotting_main
 
 import (
-	"fmt"
 	"y/pattern_up"
 
 	"gonum.org/v1/plot/plotter"
@@ -38,7 +37,7 @@ func Linepoints(x []pattern_up.Date) plotter.XYer {
 
 		pts[i].X = float64(x1.Index)
 		pts[i].Y = float64(x[i].Value)
-		fmt.Println(pts[i].X, pts[i].Y)
+		// fmt.Println(pts[i].X, pts[i].Y)
 
 	}
 	return pts

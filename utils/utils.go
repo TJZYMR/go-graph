@@ -116,7 +116,7 @@ func Plot1(t []pattern_up.Date, count int, a []int, b []int) {
 	//3)this is for printing the pattern on to the screen after pattern matching.
 	// }
 
-	if err := p.Save(16*vg.Inch, 16*vg.Inch, "points.png"); err != nil {
+	if err := p.Save(18*vg.Inch, 18*vg.Inch, "points1.png"); err != nil {
 		panic(err)
 	}
 }
