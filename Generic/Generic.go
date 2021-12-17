@@ -59,9 +59,12 @@ func Genericcsv(filepath string) []pattern_up.Date {
 	csvReader := csv.NewReader(f)
 	records, _ := csvReader.ReadAll()
 	records = records[1:]
-	for i, row := range records {
+	var Index int
+
+	for _, row := range records {
+		Index = Index + 1
 		b, _ := strconv.Atoi(row[1])
-		date = append(date, pattern_up.Date{Index: i, Date: row[0], Value: b})
+		date = append(date, pattern_up.Date{Index: Index, Date: row[0], Value: b})
 
 	}
 	return date
