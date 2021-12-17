@@ -205,7 +205,34 @@ func main() {
 	date := Getdata()
 	p1 := []string{"Upward", "Downward"}
 	w := &Lettersemicricle{date, p1}
-	a, b, c, _ := Structs_for_patterns.Find(w)
+	a, b, _, _ := Structs_for_patterns.Find(w) //start,end,count,bool
+	fmt.Println(b[0])
+	for _, i := range date[a[0] : b[1]+1] {
+		if IsValidCategory(i.Value) {
+			fmt.Println(i)
+		}
+	}
 
-	utils.Plot1(date, c, a, b)
+	// utils.Plot1(date, c, a, b)
+}
+
+//This is kind of like in operator in python language.
+func IsValidCategory(category int) bool {
+	switch category {
+	case
+		795,
+		796,
+		797,
+		798,
+		799,
+		800,
+		801,
+		802,
+		803,
+		804,
+		805,
+		806:
+		return true
+	}
+	return false
 }
