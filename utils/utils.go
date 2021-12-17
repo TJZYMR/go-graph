@@ -1,8 +1,10 @@
 package utils
 
 import (
+	"encoding/csv"
 	"fmt"
 	"image/color"
+	"os"
 	"strconv"
 	"y/pattern_up"
 	"y/plotting_main"
@@ -119,4 +121,26 @@ func Plot1(t []pattern_up.Date, count int, a []int, b []int) {
 	if err := p.Save(18*vg.Inch, 18*vg.Inch, "points1.png"); err != nil {
 		panic(err)
 	}
+}
+func Getdatacsv() []pattern_up.Date {
+	f, err := os.Open("/home/tatva.j@ah.zymrinc.com/Desktop/go-graph/Generic/s1.csv")
+	if err != nil {
+		fmt.Println(err)
+
+	}
+	var date []pattern_up.Date
+	if err != nil {
+		fmt.Println(err)
+
+	}
+	csvReader := csv.NewReader(f)
+	records, _ := csvReader.ReadAll()
+	records = records[1:]
+	var Index int
+	for _, row := range records {
+		Index = Index + 1
+		b, _ := strconv.Atoi(row[1])
+		date = append(date, pattern_up.Date{Index, row[0], b})
+	}
+	return date
 }

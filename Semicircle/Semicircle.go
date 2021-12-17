@@ -1,10 +1,7 @@
 package Semicircle
 
 import (
-	"encoding/csv"
 	"fmt"
-	"os"
-	"strconv"
 	"y/pattern_up"
 	"y/utils"
 )
@@ -176,29 +173,6 @@ func Troughs(pts []pattern_up.Date) (a []int) {
 	}
 	return b
 
-}
-
-func Getdata() []pattern_up.Date {
-	f, err := os.Open("/home/tatva.j@ah.zymrinc.com/Desktop/go-graph/Generic/s1.csv")
-	if err != nil {
-		fmt.Println(err)
-
-	}
-	var date []pattern_up.Date
-	if err != nil {
-		fmt.Println(err)
-
-	}
-	csvReader := csv.NewReader(f)
-	records, _ := csvReader.ReadAll()
-	records = records[1:]
-	var Index int
-	for _, row := range records {
-		Index = Index + 1
-		b, _ := strconv.Atoi(row[1])
-		date = append(date, pattern_up.Date{Index, row[0], b})
-	}
-	return date
 }
 
 func Adjustpoints(a, b []int, c int, date []pattern_up.Date) ([]int, []int, int) { //
