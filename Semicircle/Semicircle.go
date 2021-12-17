@@ -212,64 +212,82 @@ func main() {
 	utils.Plot1(date, c1, a1, b1)
 
 }
-func Adjustpoints(a, b []int, c int, date []pattern_up.Date) ([]int, []int, int) {
+func Adjustpoints(a, b []int, c int, date []pattern_up.Date) ([]int, []int, int) { //
 	//1->make these variables as many times as count variable c.
-	var nearby_points1 []int
-	var nearby_points2 []int
-	var t1 []int
-	var t2 []int
+
+	nearby_points := make([][]int, c)
+	//var nearby_points2 []int
+	t := make([][]int, c)
+	t1 := make([][]int, c)
+
+	// var t1 [][]int
+
 	//1
 	//2->make automatic isvalidcategory function and loop thorough the points until the last point.
-	for _, i := range date[a[0] : b[0]+1] {
-		if IsValidCategory2(i.Value) {
-			nearby_points1 = append(nearby_points1, i.Index)
+	for i := 0; i < c; i++ {
+		for _, i1 := range date[a[i] : b[i]+1] {
+			if IsValidCategory2(i1.Value) {
+				nearby_points[i] = append(nearby_points[i], i1.Index)
+			}
 		}
-	}
-	fmt.Println("nearby_points1:", nearby_points1)
 
-	for _, i := range date[a[1] : b[1]+1] {
-		if IsValidCategory1(i.Value) {
-			nearby_points2 = append(nearby_points2, i.Index)
+		for _, i2 := range date[a[i] : b[i]+1] {
+			if IsValidCategory1(i2.Value) {
+				nearby_points[i] = append(nearby_points[i], i2.Index)
+			}
+
 		}
 	}
-	fmt.Println("nearby_points2:", t2)
+	fmt.Println("nearby_points1:", nearby_points[0])
+	fmt.Println("nearby_points2:", nearby_points[1])
 	//2
 	//3-->adjust the points for evry start-end pair of points.
+	for i := 0; i < c; i++ {
+		for _, i1 := range date[b[i]-2 : b[i]+1] {
+			if IsValidCategory2(i1.Value) {
+				fmt.Println("Foundpoint nearby the ending point 1:", i1.Index)
+				t[i] = append(t[i], i1.Index)
+			}
+		}
 
-	for _, i := range date[b[0]-2 : b[0]+1] {
-		if IsValidCategory2(i.Value) {
-			fmt.Println("Foundpoint nearby the ending point 1:", i.Index)
-			t1 = append(t1, i.Index)
+		for _, i2 := range date[b[i]-4 : b[i]+1] {
+			if IsValidCategory1(i2.Value) {
+				fmt.Println("Foundpoint nearby the ending point 2:", i2.Index)
+				t1[i] = append(t1[i], i2.Index)
+			}
 		}
 	}
+	fmt.Println("nearby_points1:", nearby_points)
+	fmt.Println("t:", t)
+	fmt.Println("t1:", t1)
 
-	for _, i := range date[b[1]-4 : b[1]+1] {
-		if IsValidCategory1(i.Value) {
-			fmt.Println("Foundpoint nearby the ending point 2:", i.Index)
-			t2 = append(t2, i.Index)
-		}
-	}
 	//3
 	//4->according to the number of couunts work this out ,the showing of variable and all condition.
-	if len(t1) == 0 {
-		fmt.Println("No nearby points found")
+
+	if len(t[0]) == 0 || len(t[1]) == 0 {
+		fmt.Println("No nearby points found for:")
 		fmt.Println("elemenating the first semicircle")
 		a = a[1:]
 		b = b[1:]
 		// fmt.Println(len(a), len(b))
 	}
-	if len(t2) == 0 {
-		fmt.Println(" nearby points found")
-
+	if len(t1[0]) == 0 || len(t1[1]) == 0 {
+		fmt.Println(" no nearby points found for pair of points:=>")
+		a = a[1:]
+		b = b[1:]
+	} else {
+		fmt.Println("nearby points found for:")
+		fmt.Println(len(t1))
+		b = b[1:]
+		b = append(b, t1[1][1])
 	}
 
-	fmt.Println(b)
-	b = t2[1:2]
 	fmt.Println(len(b))
 
 	c = len(a)
-	return a, b, c
+	fmt.Println(a, b, c)
 	//4
+	return a, b, c
 }
 
 //This is kind of like in operator in python language.
