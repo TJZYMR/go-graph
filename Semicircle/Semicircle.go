@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"os"
 	"strconv"
-	"y/Generic"
 	"y/Structs_for_patterns"
 	"y/pattern_up"
 	"y/utils"
@@ -203,7 +202,7 @@ func Getdata() []pattern_up.Date {
 	return date
 }
 func main() {
-	date := Generic.Genericcsv("/home/tatva.j@ah.zymrinc.com/Desktop/go-graph/Generic/s1.csv")
+	date := Getdata()
 	p1 := []string{"Upward", "Downward"}
 	w := &Lettersemicricle{date, p1}
 	a, b, c, _ := Structs_for_patterns.Find(w) //start,end,count,bool
