@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"strconv"
+	"y/Generic"
 	"y/Structs_for_patterns"
 	"y/pattern_up"
 	"y/utils"
@@ -202,7 +203,7 @@ func Getdata() []pattern_up.Date {
 	return date
 }
 func main() {
-	date := Getdata()
+	date := Generic.Genericcsv("/home/tatva.j@ah.zymrinc.com/Desktop/go-graph/Generic/s1.csv")
 	p1 := []string{"Upward", "Downward"}
 	w := &Lettersemicricle{date, p1}
 	a, b, c, _ := Structs_for_patterns.Find(w) //start,end,count,bool
@@ -263,23 +264,35 @@ func Adjustpoints(a, b []int, c int, date []pattern_up.Date) ([]int, []int, int)
 
 	//3
 	//4->according to the number of couunts work this out ,the showing of variable and all condition.
-
-	if len(t[0]) == 0 || len(t[1]) == 0 {
-		fmt.Println("No nearby points found for:")
-		fmt.Println("elemenating the first semicircle")
-		a = a[1:]
-		b = b[1:]
-		// fmt.Println(len(a), len(b))
+	for i := 0; i < c; i++ {
+		if len(t[i]) == 0 || len(t[i+1]) == 0 {
+			fmt.Println("No nearby points found for:")
+			fmt.Println("elemenating the first semicircle")
+			a = a[1:]
+			b = b[1:]
+			break
+			// fmt.Println(len(a), len(b))
+		} else {
+			fmt.Println("nearby points found for:")
+			fmt.Println(len(t))
+			b = b[1:]
+			b = append(b, t1[1][1])
+			break
+		}
 	}
-	if len(t1[0]) == 0 || len(t1[1]) == 0 {
-		fmt.Println(" no nearby points found for pair of points:=>")
-		a = a[1:]
-		b = b[1:]
-	} else {
-		fmt.Println("nearby points found for:")
-		fmt.Println(len(t1))
-		b = b[1:]
-		b = append(b, t1[1][1])
+	for i := 0; i < c; i++ {
+		if len(t1[i]) == 0 || len(t1[i+1]) == 0 {
+			fmt.Println(" no nearby points found for pair of points:=>")
+			a = a[1:]
+			b = b[1:]
+			break
+		} else {
+			fmt.Println("nearby points found for:")
+			fmt.Println(len(t1))
+			b = b[1:]
+			b = append(b, t1[1][1])
+			break
+		}
 	}
 
 	fmt.Println(len(b))
