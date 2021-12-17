@@ -5,6 +5,6 @@ type Patterns interface {
 }
 
 func Find(P Patterns) ([]int, []int, int, bool) {
-	a, b, c, d := P.Pattern()
-	return a, b, c, d
+	start, end, count, bol := P.Pattern()
+	return start, end, count, bol
 } //end of Find and with this adter that dfgfddfdfdf
