@@ -69,9 +69,9 @@ func (l *Lettersemicricle) Pattern() ([]int, []int, int, bool) {
 			if i1[i+1] == "Downward" && i+1 != len(i1)-1 {
 
 				count = count + 1
-				fmt.Println("Count =", count)
-				fmt.Println("Starting Point =", l.T[i2[i]])
-				fmt.Println("Ending Point =", l.T[i2[i+1]+1])
+				// fmt.Println("Count =", count)
+				// fmt.Println("Starting Point =", l.T[i2[i]])
+				// fmt.Println("Ending Point =", l.T[i2[i+1]+1])
 
 				start = append(start, i2[i])
 				end = append(end, i2[i+1+1])
@@ -205,19 +205,75 @@ func main() {
 	date := Getdata()
 	p1 := []string{"Upward", "Downward"}
 	w := &Lettersemicricle{date, p1}
-	a, b, _, _ := Structs_for_patterns.Find(w) //start,end,count,bool
-	fmt.Println(b[0])
-	for _, i := range date[a[0] : b[1]+1] {
-		if IsValidCategory(i.Value) {
-			fmt.Println(i)
+	a, b, c, _ := Structs_for_patterns.Find(w) //start,end,count,bool
+	// fmt.Println(b[0])
+
+	a1, b1, c1 := Adjustpoints(a, b, c, date)
+	utils.Plot1(date, c1, a1, b1)
+
+}
+func Adjustpoints(a, b []int, c int, date []pattern_up.Date) ([]int, []int, int) {
+	//1->make these variables as many times as count variable c.
+	var nearby_points1 []int
+	var nearby_points2 []int
+	var t1 []int
+	var t2 []int
+	//1
+	//2->make automatic isvalidcategory function and loop thorough the points until the last point.
+	for _, i := range date[a[0] : b[0]+1] {
+		if IsValidCategory2(i.Value) {
+			nearby_points1 = append(nearby_points1, i.Index)
+		}
+	}
+	fmt.Println("nearby_points1:", nearby_points1)
+
+	for _, i := range date[a[1] : b[1]+1] {
+		if IsValidCategory1(i.Value) {
+			nearby_points2 = append(nearby_points2, i.Index)
+		}
+	}
+	fmt.Println("nearby_points2:", t2)
+	//2
+	//3-->adjust the points for evry start-end pair of points.
+
+	for _, i := range date[b[0]-2 : b[0]+1] {
+		if IsValidCategory2(i.Value) {
+			fmt.Println("Foundpoint nearby the ending point 1:", i.Index)
+			t1 = append(t1, i.Index)
 		}
 	}
 
-	// utils.Plot1(date, c, a, b)
+	for _, i := range date[b[1]-4 : b[1]+1] {
+		if IsValidCategory1(i.Value) {
+			fmt.Println("Foundpoint nearby the ending point 2:", i.Index)
+			t2 = append(t2, i.Index)
+		}
+	}
+	//3
+	//4->according to the number of couunts work this out ,the showing of variable and all condition.
+	if len(t1) == 0 {
+		fmt.Println("No nearby points found")
+		fmt.Println("elemenating the first semicircle")
+		a = a[1:]
+		b = b[1:]
+		// fmt.Println(len(a), len(b))
+	}
+	if len(t2) == 0 {
+		fmt.Println(" nearby points found")
+
+	}
+
+	fmt.Println(b)
+	b = t2[1:2]
+	fmt.Println(len(b))
+
+	c = len(a)
+	return a, b, c
+	//4
 }
 
 //This is kind of like in operator in python language.
-func IsValidCategory(category int) bool {
+func IsValidCategory1(category int) bool {
 	switch category {
 	case
 		795,
@@ -232,6 +288,27 @@ func IsValidCategory(category int) bool {
 		804,
 		805,
 		806:
+		return true
+	}
+	return false
+}
+func IsValidCategory2(category int) bool {
+	switch category {
+	case
+		774,
+		775,
+		776,
+		777,
+		778,
+		779,
+		780,
+		773,
+		772,
+		771,
+		770,
+		769,
+		768,
+		767:
 		return true
 	}
 	return false
