@@ -1,12 +1,10 @@
-package main
+package Semicircle
 
 import (
 	"encoding/csv"
 	"fmt"
 	"os"
 	"strconv"
-	"y/Generic"
-	"y/Structs_for_patterns"
 	"y/pattern_up"
 	"y/utils"
 )
@@ -202,17 +200,7 @@ func Getdata() []pattern_up.Date {
 	}
 	return date
 }
-func main() {
-	date := Generic.Genericcsv("/home/tatva.j@ah.zymrinc.com/Desktop/go-graph/Generic/s1.csv")
-	p1 := []string{"Upward", "Downward"}
-	w := &Lettersemicricle{date, p1}
-	a, b, c, _ := Structs_for_patterns.Find(w) //start,end,count,bool
-	// fmt.Println(b[0])
 
-	a1, b1, c1 := Adjustpoints(a, b, c, date)
-	utils.Plot1(date, c1, a1, b1)
-
-}
 func Adjustpoints(a, b []int, c int, date []pattern_up.Date) ([]int, []int, int) { //
 	//1->make these variables as many times as count variable c.
 

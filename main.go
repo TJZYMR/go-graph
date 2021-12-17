@@ -1,43 +1,51 @@
 package main
 
 import (
-	"encoding/csv"
-	"fmt"
-	"os"
-	"strconv"
+	"y/Generic"
+	"y/Semicircle"
 	"y/Structs_for_patterns"
-	"y/W"
-	"y/pattern_up"
 	"y/utils"
 )
 
+// func main() {
+
+// 	f, err := os.Open("/home/tatva.j@ah.zymrinc.com/Desktop/go-graph/Generic/date-values.csv")
+// 	if err != nil {
+// 		fmt.Println(err)
+
+// 	}
+// 	var date []pattern_up.Date
+// 	if err != nil {
+// 		fmt.Println(err)
+
+// 	}
+// 	csvReader := csv.NewReader(f)
+// 	records, _ := csvReader.ReadAll()
+// 	records = records[1:]
+// 	var Index int
+// 	for _, row := range records {
+// 		Index = Index + 1
+// 		b, _ := strconv.Atoi(row[1])
+// 		date = append(date, pattern_up.Date{Index, row[0], b})
+// 	}
+
+// 	p1 := []string{"Downward", "Upward", "Downward", "Upward"}
+// 	w := &W.Letterw{date, p1}
+// 	a2, b2, c2, _ := Structs_for_patterns.Find(w)
+// 	fmt.Println(a2, b2, c2)
+// 	utils.Plot1(date, c2, a2, b2)
+// }
+//main function for mathcing semicircle.
 func main() {
+	date := Generic.Genericcsv("/home/tatva.j@ah.zymrinc.com/Desktop/go-graph/Generic/s1.csv")
+	p1 := []string{"Upward", "Downward"}
+	w := &Semicircle.Lettersemicricle{date, p1}
+	a, b, c, _ := Structs_for_patterns.Find(w) //start,end,count,bool
+	// fmt.Println(b[0])
 
-	f, err := os.Open("/home/tatva.j@ah.zymrinc.com/Desktop/go-graph/Generic/date-values.csv")
-	if err != nil {
-		fmt.Println(err)
+	a1, b1, c1 := Semicircle.Adjustpoints(a, b, c, date)
+	utils.Plot1(date, c1, a1, b1)
 
-	}
-	var date []pattern_up.Date
-	if err != nil {
-		fmt.Println(err)
-
-	}
-	csvReader := csv.NewReader(f)
-	records, _ := csvReader.ReadAll()
-	records = records[1:]
-	var Index int
-	for _, row := range records {
-		Index = Index + 1
-		b, _ := strconv.Atoi(row[1])
-		date = append(date, pattern_up.Date{Index, row[0], b})
-	}
-
-	p1 := []string{"Downward", "Upward", "Downward", "Upward"}
-	w := &W.Letterw{date, p1}
-	a2, b2, c2, _ := Structs_for_patterns.Find(w)
-	fmt.Println(a2, b2, c2)
-	utils.Plot1(date, c2, a2, b2)
 }
 
 //1.sending the data so that it will be in searlized form for graph plotting and the pattern matches then
