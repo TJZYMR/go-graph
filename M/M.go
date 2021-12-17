@@ -7,55 +7,55 @@ import (
 )
 
 type Letterm struct {
-	T []pattern_up.Date
-	P []string
+	Date_struct []pattern_up.Date
+	Patternn    []string
 }
 
 func (l *Letterm) Pattern() ([]int, []int, int, bool) {
-	a := pattern_up.Peaks(l.T)
-	fmt.Println("Peaks =", a)
-	b := pattern_up.Troughs(l.T)
-	fmt.Println("Troughs =", b)
+	Peaks := pattern_up.Peaks(l.Date_struct)
+	fmt.Println("Peaks =", Peaks)
+	Troughs := pattern_up.Troughs(l.Date_struct)
+	fmt.Println("Troughs =", Troughs)
 	// l.P = []string{"Upward", "Downward", "Upward", "Downward"}
-	var i1 []string
-	var w1 []int
-	for i := range a {
-		w1 = append(w1, a[i])
+	var All_trends_string []string
+	var mixed_unsorted []int
+	for i := range Peaks {
+		mixed_unsorted = append(mixed_unsorted, Peaks[i])
 	}
-	for i := range b {
-		w1 = append(w1, b[i])
+	for i := range Troughs {
+		mixed_unsorted = append(mixed_unsorted, Troughs[i])
 	}
-	w2 := utils.Sort(w1)
-	var i2 []int
-	for _, i := range w2 {
-		if pattern_up.P_up(l.T[i : i+2]) {
-			i1 = append(i1, "Upward")
-			i2 = append(i2, i)
+	mixed_sorted := utils.Sort(mixed_unsorted)
+	var All_trends_values []int
+	for _, i := range mixed_sorted {
+		if pattern_up.P_up(l.Date_struct[i : i+2]) {
+			All_trends_string = append(All_trends_string, "Upward")
+			All_trends_values = append(All_trends_values, i)
 
 		} else {
-			i1 = append(i1, "Downward")
-			i2 = append(i2, i)
+			All_trends_string = append(All_trends_string, "Downward")
+			All_trends_values = append(All_trends_values, i)
 		}
 	}
-	var bol bool
-	fmt.Println("Mix =", w2)
-	fmt.Println("main Pattern =", l.P)
-	fmt.Println("Pattern =", i1)
+	var bol bool //to check whether the code is of the patter that we expect it to be.
+	fmt.Println("Mix =", mixed_sorted)
+	fmt.Println("main Pattern =", l.Patternn)
+	fmt.Println("Pattern =", All_trends_string)
 	var start []int
 	var end []int
 	var count int
-	for i := range i1 {
-		if i1[i] == "Upward" && i != len(i1)-1 {
-			if i1[i+1] == "Downward" && i+1 != len(i1)-1 {
-				if i1[i+2] == "Upward" && i+2 != len(i1)-1 {
-					if i1[i+3] == "Downward" && i+3 != len(i1)-1 {
+	for i := range All_trends_string {
+		if All_trends_string[i] == "Upward" && i != len(All_trends_string)-1 {
+			if All_trends_string[i+1] == "Downward" && i+1 != len(All_trends_string)-1 {
+				if All_trends_string[i+2] == "Upward" && i+2 != len(All_trends_string)-1 {
+					if All_trends_string[i+3] == "Downward" && i+3 != len(All_trends_string)-1 {
 						count = count + 1
 						fmt.Println("Count =", count)
-						fmt.Println("Starting Point =", l.T[i2[i]])
-						fmt.Println("Ending Point =", l.T[i2[i+3]+1])
+						fmt.Println("Starting Point =", l.Date_struct[All_trends_values[i]])
+						fmt.Println("Ending Point =", l.Date_struct[All_trends_values[i+3]+1])
 
-						start = append(start, i2[i])
-						end = append(end, i2[i+3+1])
+						start = append(start, All_trends_values[i])
+						end = append(end, All_trends_values[i+3+1])
 						bol = true
 
 					}
