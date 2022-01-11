@@ -51,7 +51,7 @@ func (l *Letter_inverted_semicircle) PatternU() ([]int, []int, int, bool) {
 	for i := range All_trends_string {
 		if All_trends_string[i] == "Downward" && i != len(All_trends_string)-1 {
 			if All_trends_string[i+1] == "Upward" && i+1 != len(All_trends_string)-1 { //Task:=>check here for first and last point to be in the align manner.
-				var a1 []int
+				var a1 []int //end point
 				var x int
 
 				for i1 := 0; i1 < 30; i1++ {
@@ -62,7 +62,7 @@ func (l *Letter_inverted_semicircle) PatternU() ([]int, []int, int, bool) {
 					x = l.Date_struct[All_trends_index_values[i+2]].Value - i2
 					a1 = append(a1, x)
 				}
-				var a2 []int
+				var a2 []int //start point
 				var x1 int
 
 				for i1 := 0; i1 < 30; i1++ {
@@ -73,31 +73,30 @@ func (l *Letter_inverted_semicircle) PatternU() ([]int, []int, int, bool) {
 					x1 = l.Date_struct[All_trends_index_values[i]+1].Value - i2
 					a2 = append(a2, x1)
 				}
-
-				if Is_Valid11(l.Date_struct[All_trends_index_values[i]].Value, a1) {
+				// if Is_Valid11(l.Date_struct[All_trends_index_values[i]].Value, a1) {
+				// 	start = append(start, All_trends_index_values[i])
+				// 	end = append(end, All_trends_index_values[i])
+				// 	count++
+				// 	bol = true //do tuing here
+				// } else
+				if Is_Valid11(l.Date_struct[All_trends_index_values[i]+1].Value, a1) {
 					start = append(start, All_trends_index_values[i]+1)
-					end = append(end, All_trends_index_values[i+2]+1)
-					count++
-					bol = true
-
-				} else if Is_Valid11(l.Date_struct[All_trends_index_values[i]+1].Value, a1) {
-					start = append(start, All_trends_index_values[i]+1)
-					end = append(end, All_trends_index_values[i+2]+1)
+					end = append(end, All_trends_index_values[i+2]+1) //last U
 					count++
 					bol = true
 				} else if Is_Valid11(l.Date_struct[All_trends_index_values[i]+2].Value, a1) {
 					start = append(start, All_trends_index_values[i]+2)
-					end = append(end, All_trends_index_values[i+2]+1)
+					end = append(end, All_trends_index_values[i+1])
+					count++
+					bol = true
+				} else if Is_Valid11(l.Date_struct[All_trends_index_values[i]].Value, a2) {
+					start = append(start, All_trends_index_values[i])
+					end = append(end, All_trends_index_values[i]+1)
 					count++
 					bol = true
 				} else if Is_Valid11(l.Date_struct[All_trends_index_values[i]+1].Value, a2) {
 					start = append(start, All_trends_index_values[i])
-					end = append(end, All_trends_index_values[i+2]+1)
-					count++
-					bol = true
-				} else if Is_Valid11(l.Date_struct[All_trends_index_values[i]+2].Value, a2) {
-					start = append(start, All_trends_index_values[i]+1)
-					end = append(end, All_trends_index_values[i+2]+1)
+					end = append(end, All_trends_index_values[i]+5) //some connection
 					count++
 					bol = true
 				}
@@ -271,11 +270,11 @@ func troughs(pts []pattern_up.Date) (a []int) {
 				x = pts[i].Value - i2
 				a1 = append(a1, x)
 			}
-			if Is_Valid1(pts[i-1].Value, a1) { //pts[i-1].Value == pts[i].Value || pts[i+1].Value == pts[i].Value
+			if Is_Valid1(pts[i-1].Value, a1) && pts[i-1].Value < pts[i-2].Value { //pts[i-1].Value == pts[i].Value || pts[i+1].Value == pts[i].Value
 				b = append(b, i)
 				continue
 			}
-			if Is_Valid1(pts[i+1].Value, a1) { //pts[i-1].Value == pts[i].Value || pts[i+1].Value == pts[i].Value
+			if Is_Valid1(pts[i+1].Value, a1) && pts[i+1].Value < pts[i+2].Value { //pts[i-1].Value == pts[i].Value || pts[i+1].Value == pts[i].Value
 				b = append(b, i)
 				continue
 
@@ -289,13 +288,14 @@ func troughs(pts []pattern_up.Date) (a []int) {
 
 }
 func main() {
-	Date := Generic.Genericcsv("/home/tatva.j@ah.zymrinc.com/Desktop/go-graph/Generic/data.csv")
+	Date := Generic.Genericcsv("/home/tatva.j@ah.zymrinc.com/Desktop/go-graph/Generic/data1.csv")
 	Plot_Original(Date, "Main_Without_Patterns.png")
 	P := &Letter_inverted_semicircle{Date_struct: Date}
 	start, end, count, bol := Find(P)
 	fmt.Println(start, end, count, bol)
 	if bol {
 		Plot_Pattern(Date, count, start, end, "Main_With_Patterns_U.png")
+		fmt.Println(Date[39], Date[48])
 	} else {
 		fmt.Println("No Pattern Found")
 	}
