@@ -9,7 +9,7 @@ import (
 
 //main function for mathcing semicircle.
 func main() {
-	date := Generic.Genericcsv("/home/tatva.j@ah.zymrinc.com/Desktop/go-graph/Generic/s1.csv")
+	date := Generic.Genericcsv("Generic/s1.csv")
 	pattern := []string{"Upward", "Downward"}
 	Semicircle_data_struct := &Semicircle.Lettersemicricle{date, pattern}
 	Start1, End1, Count1, _ := Structs_for_patterns.Find(Semicircle_data_struct) //start,end,count,bool
