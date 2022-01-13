@@ -81,32 +81,70 @@ func (l *Letter_semicircle) PatternU() ([]int, []int, int, bool) {
 				// } else
 				if Is_Valid11(l.Date_struct[All_trends_index_values[i]+1].Value, a1) {
 					start = append(start, All_trends_index_values[i]+1)
-					end = append(end, All_trends_index_values[i+2]+2) //last U
+					end = append(end, All_trends_index_values[i+1]+2) //last U
 					count++
 					bol = true
 				} else if Is_Valid11(l.Date_struct[All_trends_index_values[i]+2].Value, a1) {
 					start = append(start, All_trends_index_values[i]+2)
-					end = append(end, All_trends_index_values[i+2]+4)
+					end = append(end, All_trends_index_values[i+1]+2) //last U
 					count++
 					bol = true
-				} else if Is_Valid11(l.Date_struct[All_trends_index_values[i]].Value, a2) {
-					start = append(start, All_trends_index_values[i])
-					end = append(end, All_trends_index_values[i]+8)
+				} else if Is_Valid11(l.Date_struct[All_trends_index_values[i]+3].Value, a1) {
+					start = append(start, All_trends_index_values[i]+3)
+					end = append(end, All_trends_index_values[i+1]+2) //last U
 					count++
 					bol = true
 				} else if Is_Valid11(l.Date_struct[All_trends_index_values[i+1]].Value, a2) {
 					start = append(start, All_trends_index_values[i])
-					fmt.Println("here!!")
-					end = append(end, All_trends_index_values[i+1]+3) //some connection
+					end = append(end, All_trends_index_values[i+1]+3) //last U
 					count++
 					bol = true
 				} else if Is_Valid11(l.Date_struct[All_trends_index_values[i]+1].Value, a2) {
-					start = append(start, All_trends_index_values[i])
-					fmt.Println("here1!!")
-					end = append(end, All_trends_index_values[i]+8) //some connection
+					start = append(start, All_trends_index_values[i]+1)
+					end = append(end, All_trends_index_values[i+2]+1) //last U
 					count++
 					bol = true
 				}
+				// } else if Is_Valid11(l.Date_struct[All_trends_index_values[i]+2].Value, a1) {
+				// 	start = append(start, All_trends_index_values[i]+2)
+				// 	end = append(end, All_trends_index_values[i+1]+2) //last U
+				// 	count++
+				// 	bol = true
+				// } else if Is_Valid11(l.Date_struct[All_trends_index_values[i]+3].Value, a1) {
+				// 	start = append(start, All_trends_index_values[i]+3)
+				// 	end = append(end, All_trends_index_values[i+1]+2) //last U
+				// 	count++
+				// 	bol = true
+				// }
+				// } else if Is_Valid11(l.Date_struct[All_trends_index_values[i]+2].Value, a1) {
+				// 	start = append(start, All_trends_index_values[i]+2)
+				// 	end = append(end, All_trends_index_values[i+2]+2)
+				// 	count++
+				// 	bol = true
+				// } else if Is_Valid11(l.Date_struct[All_trends_index_values[i]].Value, a2) {
+				// 	start = append(start, All_trends_index_values[i])
+				// 	end = append(end, All_trends_index_values[i]+4)
+				// 	count++
+				// 	bol = true
+				// } else if Is_Valid11(l.Date_struct[All_trends_index_values[i+1]].Value, a2) {
+				// 	start = append(start, All_trends_index_values[i])
+				// 	fmt.Println("here!!")
+				// 	end = append(end, All_trends_index_values[i+1]+2) //some connection
+				// 	count++
+				// 	bol = true
+				// } else if Is_Valid11(l.Date_struct[All_trends_index_values[i]+1].Value, a2) {
+				// 	start = append(start, All_trends_index_values[i])
+				// 	end = append(end, All_trends_index_values[i+1]+7) //last U
+				// 	count++
+				// 	bol = true
+				// }
+				// } else if Is_Valid11(l.Date_struct[All_trends_index_values[i]+1].Value, a2) {
+				// 	start = append(start, All_trends_index_values[i])
+				// 	fmt.Println("here1!!")
+				// 	end = append(end, All_trends_index_values[i]+8) //some connection
+				// 	count++
+				// 	bol = true
+				// }
 			}
 		}
 
@@ -295,14 +333,14 @@ func troughs(pts []pattern_up.Date) (a []int) {
 
 }
 func main() {
-	Date := Generic.Genericcsv("/home/tatva.j@ah.zymrinc.com/Desktop/go-graph/Generic/data2.csv")
+	Date := Generic.Genericcsv("/home/tatva.j@ah.zymrinc.com/Desktop/go-graph/Generic/data1.csv")
 	Plot_Original(Date, "Main_Without_Patterns.png")
 	P := &Letter_semicircle{Date_struct: Date}
 	start, end, count, bol := Find(P)
 	fmt.Println(start, end, count, bol)
 	if bol {
 		Plot_Pattern(Date, count, start, end, "Main_With_Patterns_U.png")
-		fmt.Println(Date[39], Date[48])
+		fmt.Println(Date[28], Date[35])
 	} else {
 		fmt.Println("No Pattern Found")
 	}
