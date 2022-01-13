@@ -54,22 +54,22 @@ func (l *Letter_semicircle) PatternU() ([]int, []int, int, bool) {
 				var a1 []int //end point
 				var x int
 
-				for i1 := 0; i1 < 30; i1++ {
+				for i1 := 0; i1 < 40; i1++ {
 					x = l.Date_struct[All_trends_index_values[i+2]].Value + i1
 					a1 = append(a1, x)
 				}
-				for i2 := 0; i2 < 30; i2++ {
+				for i2 := 0; i2 < 40; i2++ {
 					x = l.Date_struct[All_trends_index_values[i+2]].Value - i2
 					a1 = append(a1, x)
 				}
 				var a2 []int //start point
 				var x1 int
 
-				for i1 := 0; i1 < 30; i1++ {
+				for i1 := 0; i1 < 40; i1++ {
 					x1 = l.Date_struct[All_trends_index_values[i]+1].Value + i1
 					a2 = append(a2, x1)
 				}
-				for i2 := 0; i2 < 30; i2++ {
+				for i2 := 0; i2 < 40; i2++ {
 					x1 = l.Date_struct[All_trends_index_values[i]+1].Value - i2
 					a2 = append(a2, x1)
 				}
@@ -80,7 +80,7 @@ func (l *Letter_semicircle) PatternU() ([]int, []int, int, bool) {
 				// 	bol = true //do tuing here
 				// } else
 				if Is_Valid11(l.Date_struct[All_trends_index_values[i]+1].Value, a1) {
-					start = append(start, All_trends_index_values[i]+1)
+					start = append(start, All_trends_index_values[i]-1)
 					end = append(end, All_trends_index_values[i+1]+2) //last U
 					count++
 					bol = true
@@ -96,12 +96,12 @@ func (l *Letter_semicircle) PatternU() ([]int, []int, int, bool) {
 					bol = true
 				} else if Is_Valid11(l.Date_struct[All_trends_index_values[i+1]].Value, a2) {
 					start = append(start, All_trends_index_values[i])
-					end = append(end, All_trends_index_values[i+1]+3) //last U
+					end = append(end, All_trends_index_values[i+1]+3) //third u
 					count++
 					bol = true
 				} else if Is_Valid11(l.Date_struct[All_trends_index_values[i]+1].Value, a2) {
 					start = append(start, All_trends_index_values[i]+1)
-					end = append(end, All_trends_index_values[i+2]+1) //last U
+					end = append(end, All_trends_index_values[i+2]+1) //first,second and fourth U.
 					count++
 					bol = true
 				}
@@ -309,11 +309,32 @@ func Is_Valid11(category int, n []int) bool {
 		n[57],
 
 		n[58],
-		n[59]:
+		n[59],
+		n[60],
+		n[61],
+		n[62],
+		n[63],
+		n[64],
+		n[65],
+		n[66],
+		n[67],
+		n[68],
+		n[69],
+		n[70],
+		n[71],
+		n[72],
+		n[73],
+		n[74],
+		n[75],
+		n[76],
+		n[77],
+		n[78],
+		n[79]:
 		return true
 	}
 	return false
 }
+
 func troughs(pts []pattern_up.Date) (a []int) {
 	var b []int
 	for i := range pts {
