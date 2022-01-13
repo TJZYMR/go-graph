@@ -1,4 +1,4 @@
-package Semicircle
+package main
 
 import (
 	"fmt"
