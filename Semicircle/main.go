@@ -65,11 +65,11 @@ func (l *Letter_semicircle) PatternU() ([]int, []int, int, bool) {
 				var a2 []int //start point
 				var x1 int
 
-				for i1 := 0; i1 < 40; i1++ {
+				for i1 := 0; i1 < 50; i1++ {
 					x1 = l.Date_struct[All_trends_index_values[i]+1].Value + i1
 					a2 = append(a2, x1)
 				}
-				for i2 := 0; i2 < 40; i2++ {
+				for i2 := 0; i2 < 50; i2++ {
 					x1 = l.Date_struct[All_trends_index_values[i]+1].Value - i2
 					a2 = append(a2, x1)
 				}
@@ -94,12 +94,12 @@ func (l *Letter_semicircle) PatternU() ([]int, []int, int, bool) {
 					end = append(end, All_trends_index_values[i+1]+2) //last U
 					count++
 					bol = true
-				} else if Is_Valid11(l.Date_struct[All_trends_index_values[i+1]].Value, a2) {
+				} else if Is_Valid12(l.Date_struct[All_trends_index_values[i+1]].Value, a2) {
 					start = append(start, All_trends_index_values[i])
-					end = append(end, All_trends_index_values[i+1]+3) //third u
+					end = append(end, All_trends_index_values[i+3]-3) //third u
 					count++
 					bol = true
-				} else if Is_Valid11(l.Date_struct[All_trends_index_values[i]+1].Value, a2) {
+				} else if Is_Valid12(l.Date_struct[All_trends_index_values[i]+1].Value, a2) {
 					start = append(start, All_trends_index_values[i]+1)
 					end = append(end, All_trends_index_values[i+2]+1) //first,second and fourth U.
 					count++
@@ -334,7 +334,63 @@ func Is_Valid11(category int, n []int) bool {
 	}
 	return false
 }
-
+func Is_Valid12(category int, n []int) bool {
+	switch category {
+	case
+		n[0],
+		n[1],
+		n[2],
+		n[3],
+		n[4],
+		n[5],
+		n[6],
+		n[7],
+		n[8],
+		n[9],
+		n[10],
+		n[11],
+		n[12],
+		n[13],
+		n[14],
+		n[15],
+		n[16],
+		n[17],
+		n[18],
+		n[19],
+		n[20],
+		n[21],
+		n[22],
+		n[23],
+		n[24],
+		n[25],
+		n[26],
+		n[27],
+		n[28],
+		n[29],
+		n[30],
+		n[31],
+		n[32],
+		n[33],
+		n[34],
+		n[35],
+		n[36],
+		n[37],
+		n[38],
+		n[39],
+		n[40],
+		n[41],
+		n[42],
+		n[43],
+		n[44],
+		n[45],
+		n[46],
+		n[47],
+		n[48],
+		n[49]:
+		return true
+	}
+	return false
+}
 func troughs(pts []pattern_up.Date) (a []int) {
 	var b []int
 	for i := range pts {
