@@ -96,7 +96,7 @@ func (l *Letter_semicircle) PatternU() ([]int, []int, int, bool) {
 					bol = true
 				} else if Is_Valid12(l.Date_struct[All_trends_index_values[i+1]].Value, a2) {
 					start = append(start, All_trends_index_values[i])
-					end = append(end, All_trends_index_values[i+3]-3) //third u
+					end = append(end, All_trends_index_values[i+2]) //third u
 					count++
 					bol = true
 				} else if Is_Valid12(l.Date_struct[All_trends_index_values[i]+1].Value, a2) {
