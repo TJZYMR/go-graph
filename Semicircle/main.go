@@ -1,9 +1,8 @@
-package main
+package Semicircle
 
 import (
 	"fmt"
 	"image/color"
-	"y/Generic"
 	"y/pattern_up"
 	"y/plotting_main"
 	"y/utils"
@@ -18,7 +17,7 @@ type Letter_semicircle struct {
 	Date_struct []pattern_up.Date
 }
 
-func (l *Letter_semicircle) PatternU() ([]int, []int, int, bool) {
+func (l *Letter_semicircle) Pattern() ([]int, []int, int, bool) {
 	peaks := peaks(l.Date_struct)
 	troughs := troughs(l.Date_struct)
 	fmt.Println("Peaks:", peaks)
@@ -409,19 +408,20 @@ func troughs(pts []pattern_up.Date) (a []int) {
 	return b
 
 }
-func main() {
-	Date := Generic.Genericcsv("/home/tatva.j@ah.zymrinc.com/Desktop/go-graph/Generic/date4.csv")
-	Plot_Original(Date, "Main_Without_Patterns.png")
-	P := &Letter_semicircle{Date_struct: Date}
-	start, end, count, bol := Find(P)
-	fmt.Println(start, end, count, bol)
-	if bol {
-		Plot_Pattern(Date, count, start, end, "Main_With_Patterns_U.png")
-		fmt.Println(Date[28], Date[35])
-	} else {
-		fmt.Println("No Pattern Found")
-	}
-}
+
+// func main() {
+// 	Date := Generic.Genericcsv("/home/tatva.j@ah.zymrinc.com/Desktop/go-graph/Generic/date4.csv")
+// 	Plot_Original(Date, "Main_Without_Patterns.png")
+// 	P := &Letter_semicircle{Date_struct: Date}
+// 	start, end, count, bol := Find(P)
+// 	fmt.Println(start, end, count, bol)
+// 	if bol {
+// 		Plot_Pattern(Date, count, start, end, "Main_With_Patterns_U.png")
+// 		fmt.Println(Date[28], Date[35])
+// 	} else {
+// 		fmt.Println("No Pattern Found")
+// 	}
+// }
 
 func Plot_Pattern(t []pattern_up.Date, count int, a []int, b []int, Name string) {
 	//rand.Seed(int64(0))
@@ -474,10 +474,10 @@ func Plot_Original(Date []pattern_up.Date, Name string) {
 }
 
 type Patterns interface {
-	PatternU() ([]int, []int, int, bool)
+	Pattern() ([]int, []int, int, bool)
 }
 
 func Find(P Patterns) ([]int, []int, int, bool) {
-	start, end, count, bol := P.PatternU()
+	start, end, count, bol := P.Pattern()
 	return start, end, count, bol
-} //end of Find and with this adter that dfgfddfdfdf
+}
