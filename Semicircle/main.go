@@ -410,7 +410,7 @@ func troughs(pts []pattern_up.Date) (a []int) {
 
 }
 func main() {
-	Date := Generic.Genericcsv("/home/tatva.j@ah.zymrinc.com/Desktop/go-graph/Generic/data1.csv")
+	Date := Generic.Genericcsv("/home/tatva.j@ah.zymrinc.com/Desktop/go-graph/Generic/date4.csv")
 	Plot_Original(Date, "Main_Without_Patterns.png")
 	P := &Letter_semicircle{Date_struct: Date}
 	start, end, count, bol := Find(P)
