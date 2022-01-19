@@ -3,7 +3,7 @@ module y
 go 1.17
 
 require (
-	github.com/Arafatk/glot v0.0.0-20180312013246-79d5219000f0
+	github.com/fogleman/gg v1.3.0
 	github.com/go-sql-driver/mysql v1.6.0
 	github.com/xuri/excelize/v2 v2.4.1
 	gonum.org/v1/plot v0.10.0
@@ -21,10 +21,6 @@ require (
 
 require (
 	github.com/davecgh/go-spew v1.1.1 // indirect
-	github.com/fatih/color v1.13.0 // indirect
-	github.com/fogleman/gg v1.3.0 // indirect
-	github.com/mattn/go-colorable v0.1.9 // indirect
-	github.com/mattn/go-isatty v0.0.14 // indirect
 	github.com/mohae/deepcopy v0.0.0-20170929034955-c48cc78d4826 // indirect
 	github.com/richardlehane/mscfb v1.0.3 // indirect
 	github.com/richardlehane/msoleps v1.0.1 // indirect
@@ -33,5 +29,4 @@ require (
 	golang.org/x/crypto v0.0.0-20210711020723-a769d52b0f97 // indirect
 	golang.org/x/image v0.0.0-20211028202545-6944b10bf410 // indirect
 	golang.org/x/net v0.0.0-20210726213435-c6fcb2dbf985 // indirect
-	golang.org/x/sys v0.0.0-20210630005230-0f9fa26af87c // indirect
 )

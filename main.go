@@ -14,13 +14,15 @@ func main() {
 	colorGreen := "\033[32m"
 	colorYellow := "\033[33m"
 	colorBlue := "\033[34m"
-
+	//semicircle and inverted ones are working properly.just to make M and w pattern good
 	Date := Generic.Genericcsv("/home/tatva.j@ah.zymrinc.com/Desktop/go-graph/Generic/data.csv")
+	Semicircle.Plot_Original(Date, "Original.png")
 	P := &Inverted_semi_circle.Letter_inverted_semicircle{Date}
 	start, end, count, bol := Inverted_semi_circle.Find(P)
 	if bol {
 		fmt.Println(string(colorRed), "Semicircle/s found:=>", count)
 		fmt.Println("Start: ", start, "End: ", end, "Count: ", count)
+
 	}
 
 	P1 := &Semicircle.Letter_semicircle{Date}
@@ -28,6 +30,7 @@ func main() {
 	if bol1 {
 		fmt.Println(string(colorGreen), "Inverted_Semicircle/s found:=>", count1)
 		fmt.Println("Start: ", start1, "End: ", end1, "Count: ", count1)
+
 	}
 
 	P2 := &M.Letterm{Date}
@@ -42,5 +45,7 @@ func main() {
 	if bol3 {
 		fmt.Println(string(colorBlue), "W /s found:=>", count3)
 		fmt.Println("Start: ", start3, "End: ", end3, "Count: ", count3)
+		Semicircle.Plot_Pattern(Date, count3, start3, end3, "W.png")
+
 	}
 }

@@ -1,6 +1,7 @@
 package M
 
 import (
+	"fmt"
 	"y/pattern_up"
 	"y/utils"
 )
@@ -35,6 +36,7 @@ func (l *Letterm) Pattern() ([]int, []int, int, bool) {
 			All_trends_values = append(All_trends_values, i)
 		}
 	}
+	fmt.Println("All_trends_string =", All_trends_string)
 	var bol bool //to check whether the code is of the patter that we expect it to be.
 	// fmt.Println("Mix =", mixed_sorted)
 	// fmt.Println("Pattern =", All_trends_string)
