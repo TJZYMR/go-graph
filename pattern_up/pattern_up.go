@@ -57,9 +57,11 @@ func Peaks(pts []Date) (a []int) {
 			continue
 		} else if pts[i].Value == pts[len(pts)-1].Value {
 			continue
-		} else if pts[i-1].Value < pts[i].Value && pts[i+1].Value < pts[i].Value {
-			b = append(b, i)
-			continue
+		} else if pts[i-1].Value < pts[i].Value && pts[i+1].Value < pts[i].Value && pts[i+1] != pts[len(pts)-1] {
+			if pts[i-2].Value < pts[i].Value && pts[i+2].Value < pts[i].Value && pts[i+2] != pts[len(pts)-1] {
+				b = append(b, i)
+				continue
+			}
 		}
 	}
 	return b
@@ -74,9 +76,11 @@ func Troughs(pts []Date) (a []int) {
 			continue
 		} else if pts[i].Value == pts[len(pts)-1].Value {
 			continue
-		} else if pts[i-1].Value > pts[i].Value && pts[i+1].Value > pts[i].Value {
-			b = append(b, i)
-			continue
+		} else if pts[i-1].Value > pts[i].Value && pts[i+1].Value > pts[i].Value && pts[i+1] != pts[len(pts)-1] && pts[i-1] != pts[0] {
+			if pts[i-2].Value > pts[i].Value && pts[i+2].Value > pts[i].Value && pts[i+2] != pts[len(pts)-1] && pts[i-2] != pts[0] {
+				b = append(b, i)
+				continue
+			}
 		}
 	}
 	return b

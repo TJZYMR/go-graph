@@ -20,7 +20,7 @@ type Letter_semicircle struct {
 func (l *Letter_semicircle) Pattern() ([]int, []int, int, bool) {
 	peaks := peaks(l.Date_struct)
 	troughs := troughs(l.Date_struct)
-	fmt.Println("Peaks:", peaks)
+	// fmt.Println("Peaks:", peaks)
 	var All_trends_string []string
 	var mixed_unsorted []int
 	for i := range peaks {
@@ -41,7 +41,7 @@ func (l *Letter_semicircle) Pattern() ([]int, []int, int, bool) {
 			All_trends_index_values = append(All_trends_index_values, i)
 		}
 	}
-
+	fmt.Println(All_trends_index_values)
 	var start []int
 	var end []int
 	var count int
@@ -50,100 +50,68 @@ func (l *Letter_semicircle) Pattern() ([]int, []int, int, bool) {
 	for i := range All_trends_string {
 		if All_trends_string[i] == "Upward" && i != len(All_trends_string)-1 {
 			if All_trends_string[i+1] == "Downward" && i+1 != len(All_trends_string)-1 { //Task:=>check here for first and last point to be in the align manner.
-				var a1 []int //end point
-				var x int
 
-				for i1 := 0; i1 < 40; i1++ {
-					x = l.Date_struct[All_trends_index_values[i+2]].Value + i1
-					a1 = append(a1, x)
-				}
-				for i2 := 0; i2 < 40; i2++ {
-					x = l.Date_struct[All_trends_index_values[i+2]].Value - i2
-					a1 = append(a1, x)
-				}
-				var a2 []int //start point
+				var a1 []int //start point
 				var x1 int
 
 				for i1 := 0; i1 < 50; i1++ {
 					x1 = l.Date_struct[All_trends_index_values[i]+1].Value + i1
-					a2 = append(a2, x1)
+					a1 = append(a1, x1)
 				}
 				for i2 := 0; i2 < 50; i2++ {
 					x1 = l.Date_struct[All_trends_index_values[i]+1].Value - i2
-					a2 = append(a2, x1)
+					a1 = append(a1, x1)
 				}
-				// if Is_Valid11(l.Date_struct[All_trends_index_values[i]].Value, a1) {
-				// 	start = append(start, All_trends_index_values[i])
-				// 	end = append(end, All_trends_index_values[i])
-				// 	count++
-				// 	bol = true //do tuing here
-				// } else
-				if Is_Valid11(l.Date_struct[All_trends_index_values[i]+1].Value, a1) {
-					start = append(start, All_trends_index_values[i]-1)
-					end = append(end, All_trends_index_values[i+1]+2) //last U
+
+				var a2 []int //end point
+				var x int
+
+				for i1 := 0; i1 < 50; i1++ {
+					x = l.Date_struct[All_trends_index_values[i+2]].Value + i1
+					a2 = append(a2, x)
+				}
+				for i2 := 0; i2 < 50; i2++ {
+					x = l.Date_struct[All_trends_index_values[i+2]].Value - i2
+					a2 = append(a2, x)
+				}
+
+				if Is_Valid12(l.Date_struct[All_trends_index_values[i]+1].Value, a1) && Is_Valid12(l.Date_struct[All_trends_index_values[i+2]-2].Value, a2) {
+					start = append(start, All_trends_index_values[i+1]-2)
+					end = append(end, All_trends_index_values[i+2]-1)
 					count++
 					bol = true
-				} else if Is_Valid11(l.Date_struct[All_trends_index_values[i]+2].Value, a1) {
-					start = append(start, All_trends_index_values[i]+2)
-					end = append(end, All_trends_index_values[i+1]+2) //last U
+				} else if Is_Valid12(l.Date_struct[All_trends_index_values[i]+1].Value, a1) && Is_Valid12(l.Date_struct[All_trends_index_values[i+2]+1].Value, a2) {
+					start = append(start, All_trends_index_values[i+1]-2)
+					end = append(end, All_trends_index_values[i+2]+1)
 					count++
-					bol = true
-				} else if Is_Valid11(l.Date_struct[All_trends_index_values[i]+3].Value, a1) {
-					start = append(start, All_trends_index_values[i]+3)
-					end = append(end, All_trends_index_values[i+1]+2) //last U
-					count++
-					bol = true
-				} else if Is_Valid12(l.Date_struct[All_trends_index_values[i+1]].Value, a2) {
+					bol = true //1
+				} else if Is_Valid12(l.Date_struct[All_trends_index_values[i]+1].Value, a1) && Is_Valid12(l.Date_struct[All_trends_index_values[i+2]-1].Value, a2) {
 					start = append(start, All_trends_index_values[i])
-					end = append(end, All_trends_index_values[i+2]) //third u
+					end = append(end, All_trends_index_values[i+2]-1)
+					count++
+					bol = true //2
+				} else if Is_Valid12(l.Date_struct[All_trends_index_values[i]+1].Value, a2) {
+					start = append(start, All_trends_index_values[i])
+					end = append(end, All_trends_index_values[i+2]+1)
+					count++
+					bol = true //3
+				} else if Is_Valid12(l.Date_struct[All_trends_index_values[i+2]+1].Value, a1) {
+					start = append(start, All_trends_index_values[i])
+					end = append(end, All_trends_index_values[i+2]+1)
+					count++
+					bol = true //3
+				} else if Is_Valid12(l.Date_struct[All_trends_index_values[i]+1].Value, a1) && Is_Valid12(l.Date_struct[All_trends_index_values[i+2]+2].Value, a2) {
+					start = append(start, All_trends_index_values[i])
+					end = append(end, All_trends_index_values[i+2]-1)
 					count++
 					bol = true
-				} else if Is_Valid12(l.Date_struct[All_trends_index_values[i]+1].Value, a2) {
-					start = append(start, All_trends_index_values[i]+1)
-					end = append(end, All_trends_index_values[i+2]+1) //first,second and fourth U.
+				} else if Is_Valid12(l.Date_struct[All_trends_index_values[i]].Value, a1) && Is_Valid12(l.Date_struct[All_trends_index_values[i+2]].Value, a2) {
+					start = append(start, All_trends_index_values[i])
+					end = append(end, All_trends_index_values[i+2]+1)
 					count++
 					bol = true
 				}
-				// } else if Is_Valid11(l.Date_struct[All_trends_index_values[i]+2].Value, a1) {
-				// 	start = append(start, All_trends_index_values[i]+2)
-				// 	end = append(end, All_trends_index_values[i+1]+2) //last U
-				// 	count++
-				// 	bol = true
-				// } else if Is_Valid11(l.Date_struct[All_trends_index_values[i]+3].Value, a1) {
-				// 	start = append(start, All_trends_index_values[i]+3)
-				// 	end = append(end, All_trends_index_values[i+1]+2) //last U
-				// 	count++
-				// 	bol = true
-				// }
-				// } else if Is_Valid11(l.Date_struct[All_trends_index_values[i]+2].Value, a1) {
-				// 	start = append(start, All_trends_index_values[i]+2)
-				// 	end = append(end, All_trends_index_values[i+2]+2)
-				// 	count++
-				// 	bol = true
-				// } else if Is_Valid11(l.Date_struct[All_trends_index_values[i]].Value, a2) {
-				// 	start = append(start, All_trends_index_values[i])
-				// 	end = append(end, All_trends_index_values[i]+4)
-				// 	count++
-				// 	bol = true
-				// } else if Is_Valid11(l.Date_struct[All_trends_index_values[i+1]].Value, a2) {
-				// 	start = append(start, All_trends_index_values[i])
-				// 	fmt.Println("here!!")
-				// 	end = append(end, All_trends_index_values[i+1]+2) //some connection
-				// 	count++
-				// 	bol = true
-				// } else if Is_Valid11(l.Date_struct[All_trends_index_values[i]+1].Value, a2) {
-				// 	start = append(start, All_trends_index_values[i])
-				// 	end = append(end, All_trends_index_values[i+1]+7) //last U
-				// 	count++
-				// 	bol = true
-				// }
-				// } else if Is_Valid11(l.Date_struct[All_trends_index_values[i]+1].Value, a2) {
-				// 	start = append(start, All_trends_index_values[i])
-				// 	fmt.Println("here1!!")
-				// 	end = append(end, All_trends_index_values[i]+8) //some connection
-				// 	count++
-				// 	bol = true
-				// }
+
 			}
 		}
 
@@ -187,6 +155,25 @@ func peaks(pts []pattern_up.Date) (a []int) {
 		}
 	}
 	return b
+}
+
+func troughs(pts []pattern_up.Date) (a []int) {
+	var b []int
+	for i := range pts {
+		if pts[i].Value == pts[0].Value {
+			continue
+		} else if pts[i].Value == pts[len(pts)-1].Value {
+			continue
+		} else if pts[i-1].Value > pts[i].Value && pts[i+1].Value > pts[i].Value && pts[i-1] != pts[0] && pts[i+1] != pts[len(pts)-1] {
+
+			b = append(b, i)
+			continue
+
+		}
+
+	}
+	return b
+
 }
 func Is_Valid1(category int, n []int) bool {
 	switch category {
@@ -385,28 +372,60 @@ func Is_Valid12(category int, n []int) bool {
 		n[46],
 		n[47],
 		n[48],
-		n[49]:
+		n[49],
+		n[50],
+		n[51],
+		n[52],
+		n[53],
+		n[54],
+		n[55],
+		n[56],
+		n[57],
+		n[58],
+		n[59],
+		n[60],
+		n[61],
+		n[62],
+		n[63],
+		n[64],
+		n[65],
+		n[66],
+		n[67],
+		n[68],
+		n[69],
+		n[70],
+		n[71],
+		n[72],
+		n[73],
+		n[74],
+		n[75],
+		n[76],
+		n[77],
+		n[78],
+		n[79],
+		n[80],
+		n[81],
+		n[82],
+		n[83],
+		n[84],
+		n[85],
+		n[86],
+		n[87],
+		n[88],
+		n[89],
+		n[90],
+		n[91],
+		n[92],
+		n[93],
+		n[94],
+		n[95],
+		n[96],
+		n[97],
+		n[98],
+		n[99]:
 		return true
 	}
 	return false
-}
-func troughs(pts []pattern_up.Date) (a []int) {
-	var b []int
-	for i := range pts {
-		if pts[i].Value == pts[0].Value {
-			continue
-		} else if pts[i].Value == pts[len(pts)-1].Value {
-			continue
-		} else if pts[i-1].Value > pts[i].Value && pts[i+1].Value > pts[i].Value && pts[i-1] != pts[0] && pts[i+1] != pts[len(pts)-1] {
-
-			b = append(b, i)
-			continue
-
-		}
-
-	}
-	return b
-
 }
 
 // func main() {
@@ -481,3 +500,71 @@ func Find(P Patterns) ([]int, []int, int, bool) {
 	start, end, count, bol := P.Pattern()
 	return start, end, count, bol
 }
+
+// if Is_Valid11(l.Date_struct[All_trends_index_values[i]].Value, a1) {
+// 	start = append(start, All_trends_index_values[i])
+// 	end = append(end, All_trends_index_values[i])
+// 	count++
+// 	bol = true //do tuing here
+// } else
+// if Is_Valid11(l.Date_struct[All_trends_index_values[i]+1].Value, a1) {
+// 	start = append(start, All_trends_index_values[i]-1)
+// 	end = append(end, All_trends_index_values[i+1]+2)
+// 	count++
+// 	bol = true
+// } else if Is_Valid11(l.Date_struct[All_trends_index_values[i]+2].Value, a1) {
+// 	start = append(start, All_trends_index_values[i]+2)
+// 	end = append(end, All_trends_index_values[i+1]+2)
+// 	count++
+// 	bol = true
+// } else if Is_Valid11(l.Date_struct[All_trends_index_values[i]+3].Value, a1) {
+// 	start = append(start, All_trends_index_values[i]+3)
+// 	end = append(end, All_trends_index_values[i+1]+2)
+// 	count++
+// 	bol = true
+// } else if Is_Valid12(l.Date_struct[All_trends_index_values[i+1]].Value, a2) {
+// 	start = append(start, All_trends_index_values[i])
+// 	end = append(end, All_trends_index_values[i+2])
+// 	count++
+// 	bol = true
+// } else
+// } else if Is_Valid11(l.Date_struct[All_trends_index_values[i]+2].Value, a1) {
+// 	start = append(start, All_trends_index_values[i]+2)
+// 	end = append(end, All_trends_index_values[i+1]+2) //last U
+// 	count++
+// 	bol = true
+// } else if Is_Valid11(l.Date_struct[All_trends_index_values[i]+3].Value, a1) {
+// 	start = append(start, All_trends_index_values[i]+3)
+// 	end = append(end, All_trends_index_values[i+1]+2) //last U
+// 	count++
+// 	bol = true
+// }
+// } else if Is_Valid11(l.Date_struct[All_trends_index_values[i]+2].Value, a1) {
+// 	start = append(start, All_trends_index_values[i]+2)
+// 	end = append(end, All_trends_index_values[i+2]+2)
+// 	count++
+// 	bol = true
+// } else if Is_Valid11(l.Date_struct[All_trends_index_values[i]].Value, a2) {
+// 	start = append(start, All_trends_index_values[i])
+// 	end = append(end, All_trends_index_values[i]+4)
+// 	count++
+// 	bol = true
+// } else if Is_Valid11(l.Date_struct[All_trends_index_values[i+1]].Value, a2) {
+// 	start = append(start, All_trends_index_values[i])
+// 	fmt.Println("here!!")
+// 	end = append(end, All_trends_index_values[i+1]+2) //some connection
+// 	count++
+// 	bol = true
+// } else if Is_Valid11(l.Date_struct[All_trends_index_values[i]+1].Value, a2) {
+// 	start = append(start, All_trends_index_values[i])
+// 	end = append(end, All_trends_index_values[i+1]+7) //last U
+// 	count++
+// 	bol = true
+// }
+// } else if Is_Valid11(l.Date_struct[All_trends_index_values[i]+1].Value, a2) {
+// 	start = append(start, All_trends_index_values[i])
+// 	fmt.Println("here1!!")
+// 	end = append(end, All_trends_index_values[i]+8) //some connection
+// 	count++
+// 	bol = true
+// }
