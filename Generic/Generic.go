@@ -43,6 +43,7 @@ func Genericexcel(filepath, sheetname string) []pattern_up.Date {
 	return date
 }
 
+//sockets can also be introduced.
 //2.doing for csv file
 func Genericcsv(filepath string) []pattern_up.Date {
 	f, err := os.Open(filepath)

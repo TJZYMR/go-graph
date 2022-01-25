@@ -492,14 +492,14 @@ func Plot_Original(Date []pattern_up.Date, Name string) {
 	}
 }
 
-type Patterns interface {
-	Pattern() ([]int, []int, int, bool)
-}
+// type Patterns interface {
+// 	Pattern() ([]int, []int, int, bool)
+// }
 
-func Find(P Patterns) ([]int, []int, int, bool) {
-	start, end, count, bol := P.Pattern()
-	return start, end, count, bol
-}
+// func Find(P Patterns) ([]int, []int, int, bool) {
+// 	start, end, count, bol := P.Pattern()
+// 	return start, end, count, bol
+// }
 
 // if Is_Valid11(l.Date_struct[All_trends_index_values[i]].Value, a1) {
 // 	start = append(start, All_trends_index_values[i])

@@ -197,11 +197,11 @@ func IsValidCategoryu(category int, n []int) bool {
 	return false
 }
 
-type Patterns interface {
-	Pattern() ([]int, []int, int, bool)
-}
+// type Patterns interface {
+// 	Pattern() ([]int, []int, int, bool)
+// }
 
-func Find(P Patterns) ([]int, []int, int, bool) {
-	start, end, count, bol := P.Pattern()
-	return start, end, count, bol
-}
+// func Find(P Patterns) ([]int, []int, int, bool) {
+// 	start, end, count, bol := P.Pattern()
+// 	return start, end, count, bol
+// }

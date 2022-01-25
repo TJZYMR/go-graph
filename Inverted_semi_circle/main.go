@@ -350,11 +350,11 @@ func Plot_Original(Date []pattern_up.Date, Name string) {
 	}
 }
 
-type Patterns interface {
-	Pattern() ([]int, []int, int, bool)
-}
+// type Patterns interface {
+// 	Pattern() ([]int, []int, int, bool)
+// }
 
-func Find(P Patterns) ([]int, []int, int, bool) {
-	start, end, count, bol := P.Pattern()
-	return start, end, count, bol
-} //end of Find and with this adter that dfgfddfdfdf
+// func Find(P Patterns) ([]int, []int, int, bool) {
+// 	start, end, count, bol := P.Pattern()
+// 	return start, end, count, bol
+// } //end of Find and with this adter that dfgfddfdfdf
