@@ -1,14 +1,14 @@
 package plotting_main
 
 import (
-	"y/pattern_up"
+	"y/Generic"
 
 	"gonum.org/v1/plot/plotter"
 )
 
 type XY struct{ X, Y float64 }
 
-func Linepoints(x []pattern_up.Date) plotter.XYer {
+func Linepoints(x []Generic.Date) plotter.XYer {
 	//pts := make([]plotter.XYer, 3)
 	pts := make(plotter.XYs, len(x))
 	// var d int
@@ -21,7 +21,7 @@ func Linepoints(x []pattern_up.Date) plotter.XYer {
 	}
 	return pts
 }
-func RandomPoints(x []pattern_up.Date) plotter.XYs {
+func RandomPoints(x []Generic.Date) plotter.XYs {
 	pts := make(plotter.XYs, len(x))
 
 	for i := range x {

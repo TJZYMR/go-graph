@@ -1,13 +1,15 @@
 package pattern_up
 
-//{2, 703}
-type Date struct {
-	Index int
-	Date  string
-	Value int
-}
+import "y/Generic"
 
-func P_up(pts []Date) (a bool) { //pts [][]int
+//{2, 703}
+// type Date struct {
+// 	Index int
+// 	Date  string
+// 	Value int
+// }
+
+func P_up(pts []Generic.Date) (a bool) { //pts [][]int
 
 	var b bool = false
 	for i := range pts {
@@ -31,7 +33,7 @@ func P_up(pts []Date) (a bool) { //pts [][]int
 	return b
 }
 
-func P_down(pts []Date) (a bool) {
+func P_down(pts []Generic.Date) (a bool) {
 	var b bool = false
 	for i := range pts {
 		if pts[i].Value > pts[i+1].Value && pts[i+1].Date != pts[len(pts)-1].Date {
@@ -50,7 +52,7 @@ func P_down(pts []Date) (a bool) {
 
 //return all peaks
 //from that point previous point be lesser and next point be also lesser than itself.
-func Peaks(pts []Date) (a []int) {
+func Peaks(pts []Generic.Date) (a []int) {
 	var b []int
 	for i := range pts {
 		if pts[i].Value == pts[0].Value {
@@ -69,7 +71,7 @@ func Peaks(pts []Date) (a []int) {
 
 //return all throughs
 //from that point previous point be greater and next point be also greater than itself.
-func Troughs(pts []Date) (a []int) {
+func Troughs(pts []Generic.Date) (a []int) {
 	var b []int
 	for i := range pts {
 		if pts[i].Value == pts[0].Value {

@@ -3,6 +3,7 @@ package Semicircle
 import (
 	"fmt"
 	"image/color"
+	"y/Generic"
 	"y/pattern_up"
 	"y/plotting_main"
 	"y/utils"
@@ -13,11 +14,11 @@ import (
 	"gonum.org/v1/plot/vg"
 )
 
-type Letter_semicircle struct {
-	Date_struct []pattern_up.Date
+type Date_struct struct {
+	Date_struct []Generic.Date
 }
 
-func (l *Letter_semicircle) Pattern() ([]int, []int, int, bool) {
+func (l *Date_struct) Pattern() ([]int, []int, int, bool) {
 	peaks := peaks(l.Date_struct)
 	troughs := troughs(l.Date_struct)
 	// fmt.Println("Peaks:", peaks)
@@ -121,7 +122,7 @@ func (l *Letter_semicircle) Pattern() ([]int, []int, int, bool) {
 	return start, end, count, bol
 }
 
-func peaks(pts []pattern_up.Date) (a []int) {
+func peaks(pts []Generic.Date) (a []int) {
 	var b []int
 	for i := range pts {
 		if pts[i].Value == pts[0].Value {
@@ -157,7 +158,7 @@ func peaks(pts []pattern_up.Date) (a []int) {
 	return b
 }
 
-func troughs(pts []pattern_up.Date) (a []int) {
+func troughs(pts []Generic.Date) (a []int) {
 	var b []int
 	for i := range pts {
 		if pts[i].Value == pts[0].Value {
@@ -442,7 +443,7 @@ func Is_Valid12(category int, n []int) bool {
 // 	}
 // }
 
-func Plot_Pattern(t []pattern_up.Date, count int, a []int, b []int, Name string) {
+func Plot_Pattern(t []Generic.Date, count int, a []int, b []int, Name string) {
 	//rand.Seed(int64(0))
 
 	p := plot.New()
@@ -473,7 +474,7 @@ func Plot_Pattern(t []pattern_up.Date, count int, a []int, b []int, Name string)
 		panic(err)
 	}
 }
-func Plot_Original(Date []pattern_up.Date, Name string) {
+func Plot_Original(Date []Generic.Date, Name string) {
 	p := plot.New()
 
 	p.Title.Text = "Graph Problem"

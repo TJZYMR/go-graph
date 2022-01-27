@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"y/Generic"
+	"y/M"
 	"y/Semicircle"
 	"y/Structs_for_patterns"
 )
@@ -61,14 +62,18 @@ import (
 
 // }
 func main() {
-	Date := Generic.Genericcsv("/home/tatva.j@ah.zymrinc.com/Desktop/go-graph/Generic/data1.csv")
-	var p Structs_for_patterns.Patterns = &Semicircle.Letter_semicircle{Date}
+	// var Date []Generic.Date
+	// Date := Generic.Genericcsv("/home/tatva.j@ah.zymrinc.com/Desktop/go-graph/Generic/data1.csv")
+
+	var genfile Generic.Genericfiles = Generic.Date{}
+	Date := genfile.Genericcsv("/home/tatva.j@ah.zymrinc.com/Desktop/go-graph/Generic/data1.csv")
+	var p Structs_for_patterns.Patterns = &M.Date_struct{Date}
 	start2, end2, count2, bol2 := p.Pattern()
 	if bol2 {
-		fmt.Println("semi_circle/s found:=>", count2)
+		fmt.Println("M/s found:=>", count2)
 		fmt.Println("Start: ", start2, "End: ", end2, "Count: ", count2)
-		Semicircle.Plot_Pattern(Date, count2, start2, end2, "semi_circle1.png")
+		Semicircle.Plot_Pattern(Date, count2, start2, end2, "M34.png")
 	} else {
-		fmt.Println("semi_circle/s not found")
+		fmt.Println("M/s not found")
 	}
 }

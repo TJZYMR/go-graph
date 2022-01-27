@@ -2,12 +2,13 @@ package Semicircle
 
 import (
 	"fmt"
+	"y/Generic"
 	"y/pattern_up"
 	"y/utils"
 )
 
 type Lettersemicricle struct {
-	Date_struct []pattern_up.Date
+	Date_struct []Generic.Date
 	Patternn    []string
 }
 
@@ -72,7 +73,7 @@ func (l *Lettersemicricle) Pattern() ([]int, []int, int, bool) {
 	// fmt.Println("Count =", count)
 	return start, end, count, bol
 }
-func Peaks(pts []pattern_up.Date) (a []int) {
+func Peaks(pts []Generic.Date) (a []int) {
 	var b []int
 	for i := range pts {
 		if pts[i].Value == pts[0].Value {
@@ -127,7 +128,7 @@ func Peaks(pts []pattern_up.Date) (a []int) {
 	return b
 }
 
-func Troughs(pts []pattern_up.Date) (a []int) {
+func Troughs(pts []Generic.Date) (a []int) {
 	var b []int
 	for i := range pts {
 		if pts[i].Value == pts[0].Value {
@@ -166,7 +167,7 @@ func Troughs(pts []pattern_up.Date) (a []int) {
 
 }
 
-func Adjustpoints(start, end []int, count int, date []pattern_up.Date) ([]int, []int, int) { //
+func Adjustpoints(start, end []int, count int, date []Generic.Date) ([]int, []int, int) { //
 	//1->make these variables as many times as count variable c.
 
 	nearby_points := make([][]int, count)
@@ -298,8 +299,8 @@ func IsValidCategory2(category int) bool {
 	return false
 }
 
-// var a1 []pattern_up.Date
-// var b1 []pattern_up.Date
+// var a1 []Generic.Date
+// var b1 []Generic.Date
 
 // for _, i := range Peaks {
 // 	a1 = append(a1, l.Date_struct[i])

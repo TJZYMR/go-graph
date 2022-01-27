@@ -1,15 +1,16 @@
 package W
 
 import (
+	"y/Generic"
 	"y/pattern_up"
 	"y/utils"
 )
 
-type Letterw struct {
-	Date_struct []pattern_up.Date
+type Date_struct struct {
+	Date_struct []Generic.Date
 }
 
-func (l *Letterw) Pattern() ([]int, []int, int, bool) {
+func (l *Date_struct) Pattern() ([]int, []int, int, bool) {
 	Peaks := pattern_up.Peaks(l.Date_struct)
 	// fmt.Println("Peaks =", Peaks)
 	Troughs := pattern_up.Troughs(l.Date_struct)

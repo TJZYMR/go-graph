@@ -8,3 +8,6 @@ type Patterns interface {
 // 	start, end, count, bol := P.Pattern()
 // 	return start, end, count, bol
 // } //end of Find and with this adter that dfgfddfdfdf
+// type Data_Struct struct {
+// 	Date_struct []Generic.Date
+// }

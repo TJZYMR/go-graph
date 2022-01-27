@@ -6,7 +6,7 @@ import (
 	"image/color"
 	"os"
 	"strconv"
-	"y/pattern_up"
+	"y/Generic"
 	"y/plotting_main"
 
 	"gonum.org/v1/plot"
@@ -87,7 +87,7 @@ func Findtrendm() (up1, down1 map[int]int) {
 	}
 	return up, down
 }
-func Plot1(t []pattern_up.Date, count int, a []int, b []int) {
+func Plot1(t []Generic.Date, count int, a []int, b []int) {
 	//rand.Seed(int64(0))
 
 	p := plot.New()
@@ -122,13 +122,13 @@ func Plot1(t []pattern_up.Date, count int, a []int, b []int) {
 		panic(err)
 	}
 }
-func Getdatacsv() []pattern_up.Date {
+func Getdatacsv() []Generic.Date {
 	f, err := os.Open("/home/tatva.j@ah.zymrinc.com/Desktop/go-graph/Generic/s1.csv")
 	if err != nil {
 		fmt.Println(err)
 
 	}
-	var date []pattern_up.Date
+	var date []Generic.Date
 	if err != nil {
 		fmt.Println(err)
 
@@ -140,7 +140,7 @@ func Getdatacsv() []pattern_up.Date {
 	for _, row := range records {
 		Index = Index + 1
 		b, _ := strconv.Atoi(row[1])
-		date = append(date, pattern_up.Date{Index, row[0], b})
+		date = append(date, Generic.Date{Index, row[0], b})
 	}
 	return date
 }

@@ -8,7 +8,6 @@ import (
 	"io/ioutil"
 	"os"
 	"strconv"
-	"y/pattern_up"
 
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/xuri/excelize/v2"
@@ -19,16 +18,28 @@ import (
 // 	Date  string
 // 	Value int
 // }
+type Date struct {
+	Index int
+	Date  string
+	Value int
+}
 
 //1.doing for excel file
-func Genericexcel(filepath, sheetname string) []pattern_up.Date {
+type Genericfiles interface {
+	Genericexcel(filepath, sheetname string) []Date
+	Genericcsv(filepath string) []Date
+	Genericdatabase(port, username, dbname, password string) []Date
+	Genericjson(filename string) []Date
+}
+
+func (d Date) Genericexcel(filepath, sheetname string) []Date {
 	f, err := excelize.OpenFile(filepath)
 	if err != nil {
 		fmt.Println(err)
 
 	}
 	// Get value from cell by given worksheet name and axis.
-	var date []pattern_up.Date
+	var date []Date
 	rows, err := f.GetRows(sheetname)
 	if err != nil {
 		fmt.Println(err)
@@ -37,7 +48,7 @@ func Genericexcel(filepath, sheetname string) []pattern_up.Date {
 	rows = rows[1:]
 	for i, row := range rows {
 		b, _ := strconv.Atoi(row[1])
-		date = append(date, pattern_up.Date{Index: i, Date: row[0], Value: b})
+		date = append(date, Date{Index: i, Date: row[0], Value: b})
 
 	}
 	return date
@@ -45,14 +56,14 @@ func Genericexcel(filepath, sheetname string) []pattern_up.Date {
 
 //sockets can also be introduced.
 //2.doing for csv file
-func Genericcsv(filepath string) []pattern_up.Date {
+func (d Date) Genericcsv(filepath string) []Date {
 	f, err := os.Open(filepath)
 	if err != nil {
 		fmt.Println(err)
 
 	}
 	// Get value from cell by given worksheet name and axis.
-	var date []pattern_up.Date
+	var date []Date
 	if err != nil {
 		fmt.Println(err)
 
@@ -65,19 +76,19 @@ func Genericcsv(filepath string) []pattern_up.Date {
 	for _, row := range records {
 		Index = Index + 1
 		b, _ := strconv.Atoi(row[1])
-		date = append(date, pattern_up.Date{Index: Index, Date: row[0], Value: b})
+		date = append(date, Date{Index: Index, Date: row[0], Value: b})
 
 	}
 	return date
 }
 
 //3.doing for database file
-func Genericdatabase(port, username, dbname, password string) []pattern_up.Date {
+func (d Date) Genericdatabase(port, username, dbname, password string) []Date {
 	db, _ := sql.Open("mysql", username+":"+password+"@tcp("+port+")/"+dbname)
 	// db, _ := sql.Open("mysql", "tatva:zymr@123@tcp(127.0.0.1:3306)/tatva")
 	defer db.Close()
 	ab, _ := db.Query("select * from tatva.date_values")
-	var date []pattern_up.Date
+	var date []Date
 	type T struct {
 		Index int
 		Tar   string
@@ -88,13 +99,13 @@ func Genericdatabase(port, username, dbname, password string) []pattern_up.Date 
 		i++
 		var t T
 		ab.Scan(&t.Tar, &t.Value)
-		date = append(date, pattern_up.Date{Index: i, Date: t.Tar, Value: t.Value})
+		date = append(date, Date{Index: i, Date: t.Tar, Value: t.Value})
 	}
 	return date
 }
 
 //4.doing for json file
-func Genericjson(filename string) []pattern_up.Date {
+func (d Date) Genericjson(filename string) []Date {
 	jsonFile, err := os.Open(filename)
 	// if we os.Open returns an error then handle it
 	if err != nil {
@@ -109,9 +120,9 @@ func Genericjson(filename string) []pattern_up.Date {
 	}
 	var t []T
 	json.Unmarshal(byteValue, &t)
-	var date []pattern_up.Date
+	var date []Date
 	for i, row := range t {
-		date = append(date, pattern_up.Date{Index: i, Date: row.Tar, Value: row.Value})
+		date = append(date, Date{Index: i, Date: row.Tar, Value: row.Value})
 
 	}
 	return date
