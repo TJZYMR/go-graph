@@ -3,9 +3,15 @@ package main
 import (
 	"encoding/csv"
 	"fmt"
+	"image/color"
 	"os"
 	"strconv"
 	"y/utils"
+
+	"gonum.org/v1/plot"
+	"gonum.org/v1/plot/plotter"
+	"gonum.org/v1/plot/plotutil"
+	"gonum.org/v1/plot/vg"
 )
 
 type Date struct {
@@ -16,25 +22,89 @@ type Date struct {
 	Value3 int
 	Value4 int
 }
+type Date1 struct {
+	Index  int
+	Date   string
+	Value4 int
+}
 
 func main() {
 	var genfile Genericfiles1 = Date{}
+	// var genfile1 Genericfiles1 = Date1{}
+
 	Date := genfile.Genericcsv("/home/tatva.j@ah.zymrinc.com/Desktop/go-graph/data.csv")
+	Date1 := genfile.Genericcsvtwo("/home/tatva.j@ah.zymrinc.com/Desktop/go-graph/data.csv")
+
 	// Semicircle.Plot_Original(Date, "Original.png")
-	fmt.Println(Date)
+	// fmt.Println(Date)
 	var p Patterns = &Date_struct{Date}
 	start, end, count, bol := p.Pattern()
-	fmt.Println(start, end, count, bol)
+	// fmt.Println(start, end, count, bol)
 	if bol {
 		fmt.Println("inverted_semicircle/s found:=>", count)
 		fmt.Println("Start: ", start, "End: ", end, "Count: ", count)
 		fmt.Println("Start: ", Date[start[0]], Date[start[1]], "End: ", Date[end[0]], Date[end[1]], "Count: ", count)
-		// Semicircle.Plot_Pattern(Date, count, start, end, "Pattern.png")
+		Plot_Pattern(Date1, count, start, end, "Pattern.png")
 	} else {
 		fmt.Println("inverted_semicircle /s not found")
 	}
 }
+func RandomPoints(x []Date1) plotter.XYs {
+	pts := make(plotter.XYs, len(x))
 
+	for i := range x {
+		// b, _ := strconv.Atoi(x[i].Date[0:2] + "." + x[i].Date[3:5] + "." + x[i].Date[7:11])
+
+		pts[i].X = float64(x[i].Index)
+		pts[i].Y = float64(x[i].Value4)
+	}
+	return pts
+}
+
+func Plot_Pattern(t []Date1, count int, a []int, b []int, Name string) {
+	//rand.Seed(int64(0))
+
+	p := plot.New()
+
+	p.Title.Text = Name
+	p.X.Label.Text = "X"
+	p.Y.Label.Text = "Y"
+
+	err := plotutil.AddLinePoints1(p,
+		"First", RandomPoints(t))
+
+	if err != nil {
+		panic(err)
+	}
+	p.Add(plotter.NewGrid())
+	//p.BackgroundColor.RGBA()
+	plotter.DefaultLineStyle.Width = vg.Points(2)
+
+	for i := 0; i < count; i++ {
+		plotter.DefaultLineStyle.Color = color.RGBA{B: 255, A: 255}
+		plotter.DefaultLineStyle.Width = vg.Points(3.5)
+
+		plotutil.AddLinePoints(p, "Pattern M", Linepoints(t[a[i]:b[i]]))
+
+	}
+
+	if err := p.Save(18*vg.Inch, 18*vg.Inch, Name); err != nil {
+		panic(err)
+	}
+}
+func Linepoints(x []Date1) plotter.XYer {
+	//pts := make([]plotter.XYer, 3)
+	pts := make(plotter.XYs, len(x))
+	// var d int
+	for i, x1 := range x {
+
+		pts[i].X = float64(x1.Index)
+		pts[i].Y = float64(x[i].Value4)
+		// fmt.Println(pts[i].X, pts[i].Y)
+
+	}
+	return pts
+}
 func (d Date) Genericcsv(filepath string) []Date {
 	f, err := os.Open(filepath)
 	if err != nil {
@@ -63,6 +133,32 @@ func (d Date) Genericcsv(filepath string) []Date {
 	}
 	return date
 }
+func (d Date) Genericcsvtwo(filepath string) []Date1 {
+	f, err := os.Open(filepath)
+	if err != nil {
+		fmt.Println(err)
+
+	}
+	// Get value from cell by given worksheet name and axis.
+	var date []Date1
+	if err != nil {
+		fmt.Println(err)
+
+	}
+	csvReader := csv.NewReader(f)
+	records, _ := csvReader.ReadAll()
+	records = records[1:]
+	var Index int
+
+	for _, row := range records {
+		Index = Index + 1
+
+		b3, _ := strconv.Atoi(row[4])
+		date = append(date, Date1{Index: Index, Date: row[0], Value4: b3})
+
+	}
+	return date
+}
 
 type Date_struct struct {
 	Date_struct []Date
@@ -71,8 +167,8 @@ type Date_struct struct {
 func (l *Date_struct) Pattern() ([]int, []int, int, bool) {
 	peaks := peaks(l.Date_struct)
 	troughs := troughs(l.Date_struct)
-	fmt.Println(peaks)
-	fmt.Println(troughs)
+	// fmt.Println(peaks)
+	// fmt.Println(troughs)
 	var All_trends_string []string
 	var mixed_unsorted []int
 	for i := range peaks {
@@ -382,6 +478,7 @@ type Patterns interface {
 }
 type Genericfiles1 interface {
 	Genericcsv(filepath string) []Date
+	Genericcsvtwo(filepath string) []Date1
 }
 
 func P_up(pts []Date) (a bool) { //pts [][]int

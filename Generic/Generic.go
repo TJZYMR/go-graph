@@ -32,6 +32,27 @@ type Genericfiles interface {
 	Genericjson(filename string) []Date
 }
 
+func (d Date) GenericProto(filepath, sheetname string) []Date {
+	f, err := excelize.OpenFile(filepath)
+	if err != nil {
+		fmt.Println(err)
+
+	}
+	// Get value from cell by given worksheet name and axis.
+	var date []Date
+	rows, err := f.GetRows(sheetname)
+	if err != nil {
+		fmt.Println(err)
+
+	}
+	rows = rows[1:]
+	for i, row := range rows {
+		b, _ := strconv.Atoi(row[1])
+		date = append(date, Date{Index: i, Date: row[0], Value: b})
+
+	}
+	return date
+}
 func (d Date) Genericexcel(filepath, sheetname string) []Date {
 	f, err := excelize.OpenFile(filepath)
 	if err != nil {
