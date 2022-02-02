@@ -52,7 +52,7 @@ func main() {
 		fmt.Println("M/s found:=>", count)
 		fmt.Println("Start: ", start, "End: ", end, "Count: ", count)
 		fmt.Println("Start: ", Date[start[0]], "End: ", Date[end[0]], "Count: ", count)
-		Plot_Pattern(Date1, count, start, end, "PatternM.png")
+		// Plot_Pattern(Date1, count, start, end, "PatternM.png")
 	} else {
 		fmt.Println("M /s not found")
 	}
@@ -62,10 +62,19 @@ func main() {
 		fmt.Println("W/s found:=>", count1)
 		fmt.Println("Start: ", start1, "End: ", end1, "Count: ", count1)
 		fmt.Println("Start: ", Date[start1[0]], "End: ", Date[end1[0]], "Count: ", count1)
-		Plot_Pattern(Date1, count1, start1, end1, "PatternW.png")
+		// Plot_Pattern(Date1, count1, start1, end1, "PatternW.png")
 	} else {
 		fmt.Println("W /s not found")
 	}
+	var start2, end2 []int
+	count2 := count + count1
+	start2 = append(start2, start...)
+	start2 = append(start2, start1...)
+
+	end2 = append(end2, end...)
+	end2 = append(end2, end1...)
+	Plot_Pattern(Date1, count2, start2, end2, "PatternM&W.png")
+
 }
 func (d Date) Genericcsvtwo(filepath string) []Date1 {
 	f, err := os.Open(filepath)
@@ -143,7 +152,7 @@ func Plot_Pattern(t []Date1, count int, a []int, b []int, Name string) {
 	p.Y.Label.Text = "Y"
 
 	err := plotutil.AddLinePoints1(p,
-		"First", RandomPoints(t))
+		"Original", RandomPoints(t))
 
 	if err != nil {
 		panic(err)
@@ -153,10 +162,10 @@ func Plot_Pattern(t []Date1, count int, a []int, b []int, Name string) {
 	plotter.DefaultLineStyle.Width = vg.Points(2)
 
 	for i := 0; i < count; i++ {
-		plotter.DefaultLineStyle.Color = color.RGBA{B: 255, A: 255}
-		plotter.DefaultLineStyle.Width = vg.Points(2.5)
+		plotter.DefaultLineStyle.Color = color.RGBA{R: 255, A: 255}
+		plotter.DefaultLineStyle.Width = vg.Points(4)
 		// l.LineStyle.Color = color.RGBA{B: 255, A: 255}
-		plotutil.AddLinePoints(p, Name[:len(Name)-4], Linepoints(t[a[i]:b[i]]))
+		plotutil.AddLinePoints(p, Name[:len(Name)-4], i, Linepoints(t[a[i]:b[i]]))
 
 	}
 
