@@ -66,8 +66,10 @@ func main() {
 	} else {
 		fmt.Println("W /s not found")
 	}
-	var start2, end2 []int
-	count2 := count + count1
+	var start2, end2, count2 []int
+	count2 = append(count2, count)
+	count2 = append(count2, count1)
+
 	start2 = append(start2, start...)
 	start2 = append(start2, start1...)
 
@@ -142,10 +144,15 @@ func RandomPoints(x []Date1) plotter.XYs {
 	return pts
 }
 
-func Plot_Pattern(t []Date1, count int, a []int, b []int, Name string) {
+func Plot_Pattern(t []Date1, count []int, a []int, b []int, Name string) {
 	//rand.Seed(int64(0))
 
 	p := plot.New()
+	a1 := a[0 : count[0]+1]
+	a2 := a[count[0] : count[1]+1]
+
+	b1 := b[0 : count[0]+1]
+	b2 := b[count[0] : count[1]+1]
 
 	p.Title.Text = Name
 	p.X.Label.Text = "X"
@@ -161,11 +168,18 @@ func Plot_Pattern(t []Date1, count int, a []int, b []int, Name string) {
 	//p.BackgroundColor.RGBA()
 	plotter.DefaultLineStyle.Width = vg.Points(2)
 
-	for i := 0; i < count; i++ {
+	for i := 0; i < count[0]; i++ {
 		plotter.DefaultLineStyle.Color = color.RGBA{R: 255, A: 255}
 		plotter.DefaultLineStyle.Width = vg.Points(4)
 		// l.LineStyle.Color = color.RGBA{B: 255, A: 255}
-		plotutil.AddLinePoints(p, Name[:len(Name)-4], i, Linepoints(t[a[i]:b[i]]))
+		plotutil.AddLinePoints(p, Name[:len(Name)-4], 0, Linepoints(t[a1[i]:b1[i]]))
+
+	}
+	for i := 0; i < count[1]; i++ {
+		plotter.DefaultLineStyle.Color = color.RGBA{R: 255, A: 255}
+		plotter.DefaultLineStyle.Width = vg.Points(4)
+		// l.LineStyle.Color = color.RGBA{B: 255, A: 255}
+		plotutil.AddLinePoints(p, Name[:len(Name)-4], 3, Linepoints(t[a2[i]:b2[i]]))
 
 	}
 
