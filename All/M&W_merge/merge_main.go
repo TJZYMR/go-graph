@@ -40,7 +40,7 @@ type Date_struct struct {
 	Date_struct []Date
 }
 
-//COLORS:=>   m->red,w->dark-blue,U->dark-yellow,Inverted->black
+//COLORS:=>   m->red,w->orange,U->dark-yellow,Inverted->black
 func main() {
 	var genfile Genericfiles1 = Date{}
 	Date := genfile.Genericcsv("/home/tatva.j@ah.zymrinc.com/Desktop/go-graph/data.csv")
