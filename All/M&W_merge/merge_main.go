@@ -150,10 +150,10 @@ func Plot_Pattern(t []Date1, count []int, a []int, b []int, Name string) {
 
 	p := plot.New()
 	a1 := a[0 : count[0]+1]
-	a2 := a[count[0] : count[1]+1]
+	a2 := a[count[0]:]
 
 	b1 := b[0 : count[0]+1]
-	b2 := b[count[0] : count[1]+1]
+	b2 := b[count[0]:]
 
 	p.Title.Text = Name
 	p.X.Label.Text = "X"
@@ -249,31 +249,43 @@ func (l *Date_struct) PatternM() ([]int, []int, int, bool) {
 						var a1 []int //end point
 						var x int
 
-						for i1 := 0; i1 < 50; i1++ {
+						for i1 := 0; i1 < 80; i1++ {
 							x = l.Date_struct[All_trends_values[i]].Value3 + i1
 							a1 = append(a1, x)
 						}
-						for i2 := 0; i2 < 50; i2++ {
+						for i2 := 0; i2 < 80; i2++ {
 							x = l.Date_struct[All_trends_values[i]].Value3 - i2
 							a1 = append(a1, x)
 						}
 						var a2 []int //start point
 						var x1 int
 
-						for i1 := 0; i1 < 50; i1++ {
+						for i1 := 0; i1 < 80; i1++ {
 							x1 = l.Date_struct[All_trends_values[i+1]].Value2 + i1
 							a2 = append(a2, x1)
 						}
-						for i2 := 0; i2 < 50; i2++ {
+						for i2 := 0; i2 < 80; i2++ {
 							x1 = l.Date_struct[All_trends_values[i+1]].Value2 - i2
 							a2 = append(a2, x1)
 						}
 						if IsValidCategoryu(l.Date_struct[All_trends_values[i+2]].Value3, a1) && IsValidCategoryu(l.Date_struct[All_trends_values[i+3]].Value2, a2) {
 							start = append(start, All_trends_values[i])
-							end = append(end, All_trends_values[i+3]+4) //last U
+							end = append(end, All_trends_values[i+4]) //last U
+							count++
+							bol = true
+
+						} else if IsValidCategoryu(l.Date_struct[All_trends_values[i]+1].Value3, a1) && IsValidCategoryu(l.Date_struct[All_trends_values[i+3]].Value2, a2) {
+							start = append(start, All_trends_values[i]+1)
+							end = append(end, All_trends_values[i+3]+2) //last U
 							count++
 							bol = true
 						}
+						// } else if IsValidCategoryu(l.Date_struct[All_trends_values[i-2]].Value3, a1) && IsValidCategoryu(l.Date_struct[All_trends_values[i+1]].Value2, a2) {
+						// 	start = append(start, All_trends_values[i])
+						// 	end = append(end, All_trends_values[i+1]+2) //last U
+						// 	count++
+						// 	bol = true
+						// }
 						// start = append(start, All_trends_values[i])
 						// end = append(end, All_trends_values[i+3+1])
 						// bol = true
@@ -335,28 +347,43 @@ func (l *Date_struct) PatternW() ([]int, []int, int, bool) {
 						var a1 []int //end point
 						var x int
 
-						for i1 := 0; i1 < 50; i1++ {
+						for i1 := 0; i1 < 80; i1++ {
 							x = l.Date_struct[All_trends_values[i]].Value3 + i1
 							a1 = append(a1, x)
 						}
-						for i2 := 0; i2 < 50; i2++ {
+						for i2 := 0; i2 < 80; i2++ {
 							x = l.Date_struct[All_trends_values[i]].Value3 - i2
 							a1 = append(a1, x)
 						}
 						var a2 []int //start point
 						var x1 int
 
-						for i1 := 0; i1 < 50; i1++ {
+						for i1 := 0; i1 < 80; i1++ {
 							x1 = l.Date_struct[All_trends_values[i+1]].Value2 + i1
 							a2 = append(a2, x1)
 						}
-						for i2 := 0; i2 < 50; i2++ {
+						for i2 := 0; i2 < 80; i2++ {
 							x1 = l.Date_struct[All_trends_values[i+1]].Value2 - i2
 							a2 = append(a2, x1)
 						}
 						if IsValidCategoryu(l.Date_struct[All_trends_values[i+2]].Value3, a1) && IsValidCategoryu(l.Date_struct[All_trends_values[i+3]].Value2, a2) {
 							start = append(start, All_trends_values[i])
-							end = append(end, All_trends_values[i+3]+4) //last U
+							end = append(end, All_trends_values[i+3]+2) //last U
+							count++
+							bol = true
+						} else if IsValidCategoryu(l.Date_struct[All_trends_values[i+1]].Value3, a1) && IsValidCategoryu(l.Date_struct[All_trends_values[i+3]].Value2, a2) {
+							start = append(start, All_trends_values[i]-2)
+							end = append(end, All_trends_values[i+3+1]) //last U
+							count++
+							bol = true
+						} else if IsValidCategoryu(l.Date_struct[All_trends_values[i]-2].Value3, a1) && IsValidCategoryu(l.Date_struct[All_trends_values[i+2]].Value2, a2) {
+							start = append(start, All_trends_values[i]-2)
+							end = append(end, All_trends_values[i+3+1]) //last U
+							count++
+							bol = true
+						} else if IsValidCategoryu(l.Date_struct[All_trends_values[i]].Value3, a1) && IsValidCategoryu(l.Date_struct[All_trends_values[i+4]].Value2, a2) {
+							start = append(start, All_trends_values[i]+2)
+							end = append(end, All_trends_values[i+3+1]+4) //last U
 							count++
 							bol = true
 						}
@@ -427,7 +454,7 @@ func IsValidCategoryu(category int, n []int) bool {
 		n[47],
 		n[48],
 		n[49],
-		n[50],
+		n[80],
 		n[51],
 		n[52],
 		n[53],
@@ -476,7 +503,67 @@ func IsValidCategoryu(category int, n []int) bool {
 		n[96],
 		n[97],
 		n[98],
-		n[99]:
+		n[99],
+		n[100],
+		n[101],
+		n[102],
+		n[103],
+		n[104],
+		n[105],
+		n[106],
+		n[107],
+		n[108],
+		n[109],
+		n[110],
+		n[111],
+		n[112],
+		n[113],
+		n[114],
+		n[115],
+		n[116],
+		n[117],
+		n[118],
+		n[119],
+		n[120],
+		n[121],
+		n[122],
+		n[123],
+		n[124],
+		n[125],
+		n[126],
+		n[127],
+		n[128],
+		n[129],
+		n[130],
+		n[131],
+		n[132],
+		n[133],
+		n[134],
+		n[135],
+		n[136],
+		n[137],
+		n[138],
+		n[139],
+		n[140],
+		n[141],
+		n[142],
+		n[143],
+		n[144],
+		n[145],
+		n[146],
+		n[147],
+		n[148],
+		n[149],
+		n[150],
+		n[151],
+		n[152],
+		n[153],
+		n[154],
+		n[155],
+		n[156],
+		n[157],
+		n[158],
+		n[159]:
 		return true
 	}
 	return false
@@ -626,7 +713,7 @@ func Is_Valid11(category int, n []int) bool {
 		n[47],
 		n[48],
 		n[49],
-		n[50],
+		n[80],
 		n[51],
 		n[52],
 		n[53],
