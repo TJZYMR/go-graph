@@ -40,6 +40,7 @@ type Date_struct struct {
 	Date_struct []Date
 }
 
+//task remaining:=>TOuch up the code for ambiguities in output image
 //COLORS:=>   m->red,w->orange,U->dark-yellow,Inverted->black
 func main() {
 	var genfile Genericfiles1 = Date{}
