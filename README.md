@@ -4,4 +4,4 @@
 - Making use of modules helped organise the code 
 
 # issue
--There is one problem though,the colour of every Ms And Ws can not be changed due to the issue in the module that I have used.
+-No issues as of now.
