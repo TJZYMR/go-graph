@@ -48,7 +48,7 @@ func main() {
 	if bol {
 		fmt.Println("semicircle/s found:=>", count)
 		fmt.Println("Start: ", start, "End: ", end, "Count: ", count)
-		fmt.Println("Start: ", Date[start[0]], Date[start[1]], "End: ", Date[end[0]], Date[end[1]], "Count: ", count)
+		fmt.Println("Start: ", Date[start[0]], "End: ", Date[end[0]], "Count: ", count)
 	} else {
 		fmt.Println("semicircle /s not found")
 	}
@@ -252,37 +252,7 @@ func (l *Date_struct) PatternSemi() ([]int, []int, int, bool) {
 					a2 = append(a2, x)
 				}
 
-				if Is_Valid12(l.Date_struct[All_trends_index_values[i]+1].Value2, a1) && Is_Valid12(l.Date_struct[All_trends_index_values[i+2]-2].Value3, a2) {
-					start = append(start, All_trends_index_values[i+1]-2)
-					end = append(end, All_trends_index_values[i+2]-1)
-					count++
-					bol = true
-				} else if Is_Valid12(l.Date_struct[All_trends_index_values[i]+1].Value2, a1) && Is_Valid12(l.Date_struct[All_trends_index_values[i+2]+1].Value3, a2) {
-					start = append(start, All_trends_index_values[i+1]-2)
-					end = append(end, All_trends_index_values[i+2]+1)
-					count++
-					bol = true //1
-				} else if Is_Valid12(l.Date_struct[All_trends_index_values[i]+1].Value2, a1) && Is_Valid12(l.Date_struct[All_trends_index_values[i+2]-1].Value3, a2) {
-					start = append(start, All_trends_index_values[i])
-					end = append(end, All_trends_index_values[i+2]-1)
-					count++
-					bol = true //2
-				} else if Is_Valid12(l.Date_struct[All_trends_index_values[i]+1].Value2, a2) {
-					start = append(start, All_trends_index_values[i])
-					end = append(end, All_trends_index_values[i+2]+1)
-					count++
-					bol = true //3
-				} else if Is_Valid12(l.Date_struct[All_trends_index_values[i+2]+1].Value2, a1) {
-					start = append(start, All_trends_index_values[i])
-					end = append(end, All_trends_index_values[i+2]+1)
-					count++
-					bol = true //3
-				} else if Is_Valid12(l.Date_struct[All_trends_index_values[i]+1].Value2, a1) && Is_Valid12(l.Date_struct[All_trends_index_values[i+2]+2].Value3, a2) {
-					start = append(start, All_trends_index_values[i])
-					end = append(end, All_trends_index_values[i+2]-1)
-					count++
-					bol = true
-				} else if Is_Valid12(l.Date_struct[All_trends_index_values[i]].Value2, a1) && Is_Valid12(l.Date_struct[All_trends_index_values[i+2]].Value3, a2) {
+				if Is_Valid12(l.Date_struct[All_trends_index_values[i]].Value2, a1) && Is_Valid12(l.Date_struct[All_trends_index_values[i+2]].Value3, a2) {
 					start = append(start, All_trends_index_values[i])
 					end = append(end, All_trends_index_values[i+2]+1)
 					count++

@@ -268,128 +268,16 @@ func (l *Date_struct) PatternM() ([]int, []int, int, bool) {
 							x1 = l.Date_struct[All_trends_values[i+1]].Value2 - i2
 							a2 = append(a2, x1)
 						}
-						if IsValidCategoryu(l.Date_struct[All_trends_values[i]-1].Value3, a1) && IsValidCategoryu(l.Date_struct[All_trends_values[i+3]+1].Value2, a2) {
-							start = append(start, All_trends_values[i]-1)
-							end = append(end, All_trends_values[i+3]+2)
+						if IsValidCategoryu(l.Date_struct[All_trends_values[i+2]].Value3, a1) && IsValidCategoryu(l.Date_struct[All_trends_values[i+3]].Value2, a2) {
+							start = append(start, All_trends_values[i])
+							end = append(end, All_trends_values[i+4]) //last U
 							count++
 							bol = true
 
-							// } else if IsValidCategoryu(l.Date_struct[All_trends_values[i]-2].Value3, a1) && IsValidCategoryu(l.Date_struct[All_trends_values[i+3]+2].Value2, a2) {
-							// 	start = append(start, All_trends_values[i]-2)
-							// 	end = append(end, All_trends_values[i+3]+3)
-							// 	count++
-							// 	bol = true
-
-						} else if IsValidCategoryu(l.Date_struct[All_trends_values[i]-3].Value3, a1) && IsValidCategoryu(l.Date_struct[All_trends_values[i+4]].Value2, a2) {
-							start = append(start, All_trends_values[i]-3)
-							end = append(end, All_trends_values[i+4]+1)
-							count++
-							bol = true
-
-						} else if IsValidCategoryu(l.Date_struct[All_trends_values[i]+1].Value3, a1) && IsValidCategoryu(l.Date_struct[All_trends_values[i+3]+1].Value2, a2) {
-							start = append(start, All_trends_values[i]+1)
-							end = append(end, All_trends_values[i+3]+2)
-							count++
-							bol = true
-						} else if IsValidCategoryu(l.Date_struct[All_trends_values[i]+1].Value2, a1) && IsValidCategoryu(l.Date_struct[All_trends_values[i+3]+1].Value3, a2) {
-							start = append(start, All_trends_values[i]+1)
-							end = append(end, All_trends_values[i+3]+2)
-							count++
-							bol = true
 						}
-						// } else if IsValidCategoryu(l.Date_struct[All_trends_values[i]+2].Value3, a1) && IsValidCategoryu(l.Date_struct[All_trends_values[i+3]+2].Value2, a2) {
-						// 	start = append(start, All_trends_values[i]+2)
-						// 	end = append(end, All_trends_values[i+3]+3)
-						// 	count++
-						// 	bol = true
-						// }
-						// } else if IsValidCategoryu(l.Date_struct[All_trends_values[i]+3].Value3, a1) && IsValidCategoryu(l.Date_struct[All_trends_values[i+3]+3].Value2, a2) {
-						// 	start = append(start, All_trends_values[i]+3)
-						// 	end = append(end, All_trends_values[i+3]+4)
-						// 	count++
-						// 	bol = true
-						// }
-						// } else if IsValidCategoryu(l.Date_struct[All_trends_values[i]-1].Value3, a1) && IsValidCategoryu(l.Date_struct[All_trends_values[i+3]+1].Value2, a2) {
-						// 	start = append(start, All_trends_values[i]-1)
-						// 	end = append(end, All_trends_values[i+3]+2)
-						// 	count++
-						// 	bol = true
-						// }
-						// } else if IsValidCategoryu(l.Date_struct[All_trends_values[i]-2].Value3, a1) && IsValidCategoryu(l.Date_struct[All_trends_values[i+3]+2].Value2, a2) {
-						// 	start = append(start, All_trends_values[i]-2)
-						// 	end = append(end, All_trends_values[i+3]+3)
-						// 	count++
-						// 	bol = true
-
-						// } else if IsValidCategoryu(l.Date_struct[All_trends_values[i]-3].Value3, a1) && IsValidCategoryu(l.Date_struct[All_trends_values[i+3]+3].Value2, a2) {
-						// 	start = append(start, All_trends_values[i]-3)
-						// 	end = append(end, All_trends_values[i+3]+4)
-						// 	count++
-						// 	bol = true
-						// }
-						// } else if IsValidCategoryu(l.Date_struct[All_trends_values[i]+1].Value3, a1) && IsValidCategoryu(l.Date_struct[All_trends_values[i+4]-1].Value2, a2) {
-						// 	start = append(start, All_trends_values[i]+1)
-						// 	end = append(end, All_trends_values[i+4]-1)
-						// 	count++
-						// 	bol = true
-						// } else if IsValidCategoryu(l.Date_struct[All_trends_values[i]+2].Value3, a1) && IsValidCategoryu(l.Date_struct[All_trends_values[i+4]-2].Value2, a2) {
-						// 	start = append(start, All_trends_values[i]+2)
-						// 	end = append(end, All_trends_values[i+4]-2)
-						// 	count++
-						// 	bol = true
-						// } else if IsValidCategoryu(l.Date_struct[All_trends_values[i]+3].Value3, a1) && IsValidCategoryu(l.Date_struct[All_trends_values[i+4]-3].Value2, a2) {
-						// 	start = append(start, All_trends_values[i]+3)
-						// 	end = append(end, All_trends_values[i+4]-3)
-						// 	count++
-						// 	bol = true
-						// }
-						// } else if IsValidCategoryu(l.Date_struct[All_trends_values[i]-1].Value3, a1) && IsValidCategoryu(l.Date_struct[All_trends_values[i+4]+1].Value2, a2) {
-						// 	start = append(start, All_trends_values[i]-1)
-						// 	end = append(end, All_trends_values[i+4]+1)
-						// 	count++
-						// 	bol = true
-						// }
-						// } else if IsValidCategoryu(l.Date_struct[All_trends_values[i]-2].Value3, a1) && IsValidCategoryu(l.Date_struct[All_trends_values[i+4]+2].Value2, a2) {
-						// 	start = append(start, All_trends_values[i]-2)
-						// 	end = append(end, All_trends_values[i+4]+2)
-						// 	count++
-						// 	bol = true
-						// } else if IsValidCategoryu(l.Date_struct[All_trends_values[i]-3].Value3, a1) && IsValidCategoryu(l.Date_struct[All_trends_values[i+4]+3].Value2, a2) {
-						// 	start = append(start, All_trends_values[i]-3)
-						// 	end = append(end, All_trends_values[i+4]+3)
-						// 	count++
-						// 	bol = true
-						// }
-						// } else if IsValidCategoryu(l.Date_struct[All_trends_values[i]].Value3, a1) && IsValidCategoryu(l.Date_struct[All_trends_values[i+3]+1].Value2, a2) {
+						// } else if IsValidCategoryu(l.Date_struct[All_trends_values[i-2]].Value3, a1) && IsValidCategoryu(l.Date_struct[All_trends_values[i+1]].Value2, a2) {
 						// 	start = append(start, All_trends_values[i])
-						// 	end = append(end, All_trends_values[i+3]+2)
-						// 	count++
-						// 	bol = true
-						// } else if IsValidCategoryu(l.Date_struct[All_trends_values[i]].Value3, a1) && IsValidCategoryu(l.Date_struct[All_trends_values[i+3]+2].Value2, a2) {
-						// 	start = append(start, All_trends_values[i])
-						// 	end = append(end, All_trends_values[i+3]+3)
-						// 	count++
-						// 	bol = true
-						// }
-						// } else if IsValidCategoryu(l.Date_struct[All_trends_values[i]].Value3, a1) && IsValidCategoryu(l.Date_struct[All_trends_values[i+3]+3].Value2, a2) {
-						// 	start = append(start, All_trends_values[i])
-						// 	end = append(end, All_trends_values[i+3]+4)
-						// 	count++
-						// 	bol = true
-						// } else if IsValidCategoryu(l.Date_struct[All_trends_values[i]-1].Value3, a1) && IsValidCategoryu(l.Date_struct[All_trends_values[i+3]+1].Value2, a2) {
-						// 	start = append(start, All_trends_values[i]-1)
-						// 	end = append(end, All_trends_values[i+3]+2)
-						// 	count++
-						// 	bol = true
-						// }
-						// } else if IsValidCategoryu(l.Date_struct[All_trends_values[i]-2].Value3, a1) && IsValidCategoryu(l.Date_struct[All_trends_values[i+3]+2].Value2, a2) {
-						// 	start = append(start, All_trends_values[i]-2)
-						// 	end = append(end, All_trends_values[i+3]+3)
-						// 	count++
-						// 	bol = true
-						// } else if IsValidCategoryu(l.Date_struct[All_trends_values[i]-3].Value3, a1) && IsValidCategoryu(l.Date_struct[All_trends_values[i+3]+3].Value2, a2) {
-						// 	start = append(start, All_trends_values[i]-3)
-						// 	end = append(end, All_trends_values[i+3]+4)
+						// 	end = append(end, All_trends_values[i+1]+2) //last U
 						// 	count++
 						// 	bol = true
 						// }
@@ -475,22 +363,22 @@ func (l *Date_struct) PatternW() ([]int, []int, int, bool) {
 						}
 						if IsValidCategoryu(l.Date_struct[All_trends_values[i+2]].Value3, a1) && IsValidCategoryu(l.Date_struct[All_trends_values[i+3]].Value2, a2) {
 							start = append(start, All_trends_values[i])
-							end = append(end, All_trends_values[i+3]+2)
+							end = append(end, All_trends_values[i+3]+2) //last U
 							count++
 							bol = true
 						} else if IsValidCategoryu(l.Date_struct[All_trends_values[i+1]].Value3, a1) && IsValidCategoryu(l.Date_struct[All_trends_values[i+3]].Value2, a2) {
 							start = append(start, All_trends_values[i]-2)
-							end = append(end, All_trends_values[i+3+1])
+							end = append(end, All_trends_values[i+3+1]) //last U
 							count++
 							bol = true
 						} else if IsValidCategoryu(l.Date_struct[All_trends_values[i]-2].Value3, a1) && IsValidCategoryu(l.Date_struct[All_trends_values[i+2]].Value2, a2) {
 							start = append(start, All_trends_values[i]-2)
-							end = append(end, All_trends_values[i+3+1])
+							end = append(end, All_trends_values[i+3+1]) //last U
 							count++
 							bol = true
 						} else if IsValidCategoryu(l.Date_struct[All_trends_values[i]].Value3, a1) && IsValidCategoryu(l.Date_struct[All_trends_values[i+4]].Value2, a2) {
 							start = append(start, All_trends_values[i]+2)
-							end = append(end, All_trends_values[i+3+1]+4)
+							end = append(end, All_trends_values[i+3+1]+4) //last U
 							count++
 							bol = true
 						}
