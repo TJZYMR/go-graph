@@ -253,9 +253,19 @@ func (l *Date_struct) PatternSemi() ([]int, []int, int, bool) {
 					a2 = append(a2, x)
 				}
 
-				if Is_Valid12(l.Date_struct[All_trends_index_values[i]].Value2, a1) && Is_Valid12(l.Date_struct[All_trends_index_values[i+2]].Value3, a2) {
+				if Is_Valid12(l.Date_struct[All_trends_index_values[i]].Value2, a1) && Is_Valid12(l.Date_struct[All_trends_index_values[i+2]+2].Value3, a2) {
 					start = append(start, All_trends_index_values[i])
-					end = append(end, All_trends_index_values[i+2]+1)
+					end = append(end, All_trends_index_values[i+2]+3)
+					count++
+					bol = true
+				} else if Is_Valid12(l.Date_struct[All_trends_index_values[i]-2].Value2, a1) && Is_Valid12(l.Date_struct[All_trends_index_values[i+2]].Value3, a2) {
+					start = append(start, All_trends_index_values[i])
+					end = append(end, All_trends_index_values[i+2]-2)
+					count++
+					bol = true
+				} else if Is_Valid12(l.Date_struct[All_trends_index_values[i]].Value2, a1) && Is_Valid12(l.Date_struct[All_trends_index_values[i+2]].Value3, a2) {
+					start = append(start, All_trends_index_values[i]+1)
+					end = append(end, All_trends_index_values[i+2]-2)
 					count++
 					bol = true
 				}
@@ -276,23 +286,23 @@ func peaks(pts []Date) (a []int) {
 			continue
 		} else if pts[i].Value2 == pts[len(pts)-1].Value2 {
 			continue
-		} else if pts[i-1].Value2 < pts[i].Value2 && pts[i+1].Value3 < pts[i].Value2 && pts[i-1] != pts[0] && pts[i+1] != pts[len(pts)-1] {
+		} else if pts[i-1].Value2 < pts[i].Value2 && pts[i+1].Value2 < pts[i].Value2 && pts[i-1] != pts[0] && pts[i+1] != pts[len(pts)-1] {
 
 			var a1 []int
 			var x int
-			for i1 := 0; i1 < 30; i1++ {
+			for i1 := 0; i1 < 80; i1++ {
 				x = pts[i].Value2 + i1
 				a1 = append(a1, x)
 			}
-			for i2 := 0; i2 < 30; i2++ {
+			for i2 := 0; i2 < 80; i2++ {
 				x = pts[i].Value2 - i2
 				a1 = append(a1, x)
 			}
-			if Is_Valid30(pts[i-1].Value2, a1) && pts[i-1].Value2 > pts[i-2].Value2 { //pts[i-1].Value == pts[i].Value || pts[i+1].Value == pts[i].Value
+			if IsValidCategoryu(pts[i-1].Value2, a1) && pts[i-1].Value2 > pts[i-2].Value2 { //pts[i-1].Value == pts[i].Value || pts[i+1].Value == pts[i].Value
 				b = append(b, i)
 				continue
 			}
-			if Is_Valid30(pts[i+1].Value3, a1) && pts[i+1].Value3 > pts[i+2].Value3 { //pts[i-1].Value == pts[i].Value || pts[i+1].Value == pts[i].Value
+			if IsValidCategoryu(pts[i+1].Value2, a1) && pts[i+1].Value2 > pts[i+2].Value2 { //pts[i-1].Value == pts[i].Value || pts[i+1].Value == pts[i].Value
 				b = append(b, i)
 				continue
 
@@ -692,9 +702,34 @@ func (l *Date_struct) PatternInverted() ([]int, []int, int, bool) {
 					a2 = append(a2, x1)
 				}
 
-				if IsValidCategoryu(l.Date_struct[All_trends_index_values[i]].Value2, a1) && IsValidCategoryu(l.Date_struct[All_trends_index_values[i+2]-1].Value3, a2) {
-					start = append(start, All_trends_index_values[i])
+				if IsValidCategoryu(l.Date_struct[All_trends_index_values[i]+1].Value2, a1) && IsValidCategoryu(l.Date_struct[All_trends_index_values[i+2]-1].Value3, a2) {
+					start = append(start, All_trends_index_values[i]+1)
 					end = append(end, All_trends_index_values[i+2])
+					count++
+					bol = true
+				} else if IsValidCategoryu(l.Date_struct[All_trends_index_values[i]-1].Value2, a1) && IsValidCategoryu(l.Date_struct[All_trends_index_values[i+2]+2].Value3, a2) {
+					start = append(start, All_trends_index_values[i]-1)
+					end = append(end, All_trends_index_values[i+2])
+					count++
+					bol = true
+				} else if IsValidCategoryu(l.Date_struct[All_trends_index_values[i]+2].Value2, a1) && IsValidCategoryu(l.Date_struct[All_trends_index_values[i+2]-2].Value3, a2) {
+					start = append(start, All_trends_index_values[i]+2)
+					end = append(end, All_trends_index_values[i+2]-1)
+					count++
+					bol = true
+				} else if IsValidCategoryu(l.Date_struct[All_trends_index_values[i]].Value2, a1) && IsValidCategoryu(l.Date_struct[All_trends_index_values[i+2]].Value3, a2) {
+					start = append(start, All_trends_index_values[i])
+					end = append(end, All_trends_index_values[i+2]+1)
+					count++
+					bol = true
+				} else if IsValidCategoryu(l.Date_struct[All_trends_index_values[i]+3].Value2, a1) && IsValidCategoryu(l.Date_struct[All_trends_index_values[i+2]-3].Value3, a2) {
+					start = append(start, All_trends_index_values[i]+3)
+					end = append(end, All_trends_index_values[i+2]-2)
+					count++
+					bol = true
+				} else if IsValidCategoryu(l.Date_struct[All_trends_index_values[i]-3].Value2, a1) && IsValidCategoryu(l.Date_struct[All_trends_index_values[i+2]+3].Value3, a2) {
+					start = append(start, All_trends_index_values[i]-3)
+					end = append(end, All_trends_index_values[i+2]+4)
 					count++
 					bol = true
 				}
@@ -901,19 +936,19 @@ func troughs1(pts []Date) (a []int) {
 		} else if pts[i-1].Value3 > pts[i].Value3 && pts[i+1].Value3 > pts[i].Value3 && pts[i-1] != pts[0] && pts[i+1] != pts[len(pts)-1] {
 			var a1 []int
 			var x int
-			for i1 := 0; i1 < 30; i1++ {
+			for i1 := 0; i1 < 80; i1++ {
 				x = pts[i].Value3 + i1
 				a1 = append(a1, x)
 			}
-			for i2 := 0; i2 < 30; i2++ {
+			for i2 := 0; i2 < 80; i2++ {
 				x = pts[i].Value3 - i2
 				a1 = append(a1, x)
 			}
-			if Is_Valid30(pts[i-1].Value3, a1) && pts[i-1].Value3 < pts[i-2].Value3 { //pts[i-1].Value == pts[i].Value || pts[i+1].Value == pts[i].Value
+			if IsValidCategoryu(pts[i-1].Value3, a1) && pts[i-1].Value3 < pts[i-2].Value3 { //pts[i-1].Value == pts[i].Value || pts[i+1].Value == pts[i].Value
 				b = append(b, i)
 				continue
 			}
-			if Is_Valid30(pts[i+1].Value3, a1) && pts[i+1].Value3 < pts[i+2].Value3 { //pts[i-1].Value == pts[i].Value || pts[i+1].Value == pts[i].Value
+			if IsValidCategoryu(pts[i+1].Value3, a1) && pts[i+1].Value3 < pts[i+2].Value3 { //pts[i-1].Value == pts[i].Value || pts[i+1].Value == pts[i].Value
 				b = append(b, i)
 				continue
 
