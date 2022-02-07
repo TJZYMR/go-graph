@@ -268,6 +268,16 @@ func (l *Date_struct) PatternSemi() ([]int, []int, int, bool) {
 					end = append(end, All_trends_index_values[i+2]-2)
 					count++
 					bol = true
+				} else if Is_Valid12(l.Date_struct[All_trends_index_values[i]].Value2, a1) && Is_Valid12(l.Date_struct[All_trends_index_values[i+3]-1].Value3, a2) {
+					start = append(start, All_trends_index_values[i])
+					end = append(end, All_trends_index_values[i+3])
+					count++
+					bol = true
+				} else if Is_Valid12(l.Date_struct[All_trends_index_values[i]+1].Value2, a1) && Is_Valid12(l.Date_struct[All_trends_index_values[i+2]].Value3, a2) {
+					start = append(start, All_trends_index_values[i]+1)
+					end = append(end, All_trends_index_values[i+2]+1)
+					count++
+					bol = true
 				}
 
 			}
@@ -730,6 +740,11 @@ func (l *Date_struct) PatternInverted() ([]int, []int, int, bool) {
 				} else if IsValidCategoryu(l.Date_struct[All_trends_index_values[i]-3].Value2, a1) && IsValidCategoryu(l.Date_struct[All_trends_index_values[i+2]+3].Value3, a2) {
 					start = append(start, All_trends_index_values[i]-3)
 					end = append(end, All_trends_index_values[i+2]+4)
+					count++
+					bol = true
+				} else if IsValidCategoryu(l.Date_struct[All_trends_index_values[i]].Value2, a1) && IsValidCategoryu(l.Date_struct[All_trends_index_values[i+2]].Value3, a2) {
+					start = append(start, All_trends_index_values[i]+1)
+					end = append(end, All_trends_index_values[i+2]-2)
 					count++
 					bol = true
 				}
