@@ -274,7 +274,7 @@ func (l *Date_struct) PatternSemi() ([]int, []int, int, bool) {
 					count++
 					bol = true
 				} else if Is_Valid12(l.Date_struct[All_trends_index_values[i]+1].Value2, a1) && Is_Valid12(l.Date_struct[All_trends_index_values[i+2]].Value3, a2) {
-					start = append(start, All_trends_index_values[i]+1)
+					start = append(start, All_trends_index_values[i])
 					end = append(end, All_trends_index_values[i+2]+1)
 					count++
 					bol = true
