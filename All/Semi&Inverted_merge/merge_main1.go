@@ -56,7 +56,7 @@ func main() {
 	if bol1 {
 		fmt.Println("Inverted/s found:=>", count1)
 		fmt.Println("Start: ", start1, "End: ", end1, "Count: ", count1)
-		fmt.Println("Start: ", Date[start1[0]], Date[start1[1]], "End: ", Date[end[0]], Date[end1[1]], "Count: ", count1)
+		// fmt.Println("Start: ", Date[start1[0]], "End: ", Date[end[0]], "Count: ", count1)
 	} else {
 		fmt.Println("Inverted /s not found")
 	}
@@ -197,7 +197,8 @@ func (d Date) Genericcsv(filepath string) []Date {
 func (l *Date_struct) PatternSemi() ([]int, []int, int, bool) {
 	peaks := peaks(l.Date_struct)
 	troughs := troughs(l.Date_struct)
-	// fmt.Println("Peaks:", peaks)
+	fmt.Println("Peaks:", peaks)
+	fmt.Println("Troughs:", troughs)
 	var All_trends_string []string
 	var mixed_unsorted []int
 	for i := range peaks {
@@ -275,7 +276,7 @@ func peaks(pts []Date) (a []int) {
 			continue
 		} else if pts[i].Value2 == pts[len(pts)-1].Value2 {
 			continue
-		} else if pts[i-1].Value2 < pts[i].Value2 && pts[i+1].Value2 < pts[i].Value2 && pts[i-1] != pts[0] && pts[i+1] != pts[len(pts)-1] {
+		} else if pts[i-1].Value2 < pts[i].Value2 && pts[i+1].Value3 < pts[i].Value2 && pts[i-1] != pts[0] && pts[i+1] != pts[len(pts)-1] {
 
 			var a1 []int
 			var x int
@@ -291,7 +292,7 @@ func peaks(pts []Date) (a []int) {
 				b = append(b, i)
 				continue
 			}
-			if Is_Valid30(pts[i+1].Value2, a1) && pts[i+1].Value2 > pts[i+2].Value2 { //pts[i-1].Value == pts[i].Value || pts[i+1].Value == pts[i].Value
+			if Is_Valid30(pts[i+1].Value3, a1) && pts[i+1].Value3 > pts[i+2].Value3 { //pts[i-1].Value == pts[i].Value || pts[i+1].Value == pts[i].Value
 				b = append(b, i)
 				continue
 
@@ -637,8 +638,8 @@ func Is_Valid12(category int, n []int) bool {
 func (l *Date_struct) PatternInverted() ([]int, []int, int, bool) {
 	peaks := peaks1(l.Date_struct)
 	troughs := troughs1(l.Date_struct)
-	// fmt.Println(peaks)
-	// fmt.Println(troughs)
+	fmt.Println("Peaks:", peaks)
+	fmt.Println("Troughs:", troughs)
 	var All_trends_string []string
 	var mixed_unsorted []int
 	for i := range peaks {
@@ -671,49 +672,29 @@ func (l *Date_struct) PatternInverted() ([]int, []int, int, bool) {
 				var a1 []int //end point
 				var x int
 
-				for i1 := 0; i1 < 30; i1++ {
+				for i1 := 0; i1 < 80; i1++ {
 					x = l.Date_struct[All_trends_index_values[i+2]].Value3 + i1
 					a1 = append(a1, x)
 				}
-				for i2 := 0; i2 < 30; i2++ {
+				for i2 := 0; i2 < 80; i2++ {
 					x = l.Date_struct[All_trends_index_values[i+2]].Value3 - i2
 					a1 = append(a1, x)
 				}
 				var a2 []int //start point
 				var x1 int
 
-				for i1 := 0; i1 < 30; i1++ {
+				for i1 := 0; i1 < 80; i1++ {
 					x1 = l.Date_struct[All_trends_index_values[i]+1].Value2 + i1
 					a2 = append(a2, x1)
 				}
-				for i2 := 0; i2 < 30; i2++ {
+				for i2 := 0; i2 < 80; i2++ {
 					x1 = l.Date_struct[All_trends_index_values[i]+1].Value2 - i2
 					a2 = append(a2, x1)
 				}
-				// if Is_Valid11(l.Date_struct[All_trends_index_values[i]].Value, a1) {
-				// 	start = append(start, All_trends_index_values[i])
-				// 	end = append(end, All_trends_index_values[i])
-				// 	count++
-				// 	bol = true //do tuing here
-				// } else
-				if Is_Valid11(l.Date_struct[All_trends_index_values[i]+1].Value3, a1) {
-					start = append(start, All_trends_index_values[i]+1)
-					end = append(end, All_trends_index_values[i+2]+1) //last U
-					count++
-					bol = true
-				} else if Is_Valid11(l.Date_struct[All_trends_index_values[i]+2].Value3, a1) {
-					start = append(start, All_trends_index_values[i]+2)
-					end = append(end, All_trends_index_values[i+2]+1)
-					count++
-					bol = true
-				} else if Is_Valid11(l.Date_struct[All_trends_index_values[i]].Value2, a2) {
+
+				if IsValidCategoryu(l.Date_struct[All_trends_index_values[i]].Value2, a1) && IsValidCategoryu(l.Date_struct[All_trends_index_values[i+2]-1].Value3, a2) {
 					start = append(start, All_trends_index_values[i])
-					end = append(end, All_trends_index_values[i]+3)
-					count++
-					bol = true
-				} else if Is_Valid11(l.Date_struct[All_trends_index_values[i]+1].Value2, a2) {
-					start = append(start, All_trends_index_values[i])
-					end = append(end, All_trends_index_values[i]+5) //some connection
+					end = append(end, All_trends_index_values[i+2])
 					count++
 					bol = true
 				}
@@ -724,6 +705,173 @@ func (l *Date_struct) PatternInverted() ([]int, []int, int, bool) {
 
 	// fmt.Println("Count =", count)
 	return start, end, count, bol
+}
+func IsValidCategoryu(category int, n []int) bool {
+	switch category {
+	case
+		n[0],
+		n[1],
+		n[2],
+		n[3],
+		n[4],
+		n[5],
+		n[6],
+		n[7],
+		n[8],
+		n[9],
+		n[10],
+		n[11],
+		n[12],
+		n[13],
+		n[14],
+		n[15],
+		n[16],
+		n[17],
+		n[18],
+		n[19],
+		n[20],
+		n[21],
+		n[22],
+		n[23],
+		n[24],
+		n[25],
+		n[26],
+		n[27],
+		n[28],
+		n[29],
+		n[30],
+		n[31],
+		n[32],
+		n[33],
+		n[34],
+		n[35],
+		n[36],
+		n[37],
+		n[38],
+		n[39],
+		n[40],
+		n[41],
+		n[42],
+		n[43],
+		n[44],
+		n[45],
+		n[46],
+		n[47],
+		n[48],
+		n[49],
+		n[50],
+		n[51],
+		n[52],
+		n[53],
+		n[54],
+		n[55],
+		n[56],
+		n[57],
+		n[58],
+		n[59],
+		n[60],
+		n[61],
+		n[62],
+		n[63],
+		n[64],
+		n[65],
+		n[66],
+		n[67],
+		n[68],
+		n[69],
+		n[70],
+		n[71],
+		n[72],
+		n[73],
+		n[74],
+		n[75],
+		n[76],
+		n[77],
+		n[78],
+		n[79],
+		n[80],
+		n[81],
+		n[82],
+		n[83],
+		n[84],
+		n[85],
+		n[86],
+		n[87],
+		n[88],
+		n[89],
+		n[90],
+		n[91],
+		n[92],
+		n[93],
+		n[94],
+		n[95],
+		n[96],
+		n[97],
+		n[98],
+		n[99],
+		n[100],
+		n[101],
+		n[102],
+		n[103],
+		n[104],
+		n[105],
+		n[106],
+		n[107],
+		n[108],
+		n[109],
+		n[110],
+		n[111],
+		n[112],
+		n[113],
+		n[114],
+		n[115],
+		n[116],
+		n[117],
+		n[118],
+		n[119],
+		n[120],
+		n[121],
+		n[122],
+		n[123],
+		n[124],
+		n[125],
+		n[126],
+		n[127],
+		n[128],
+		n[129],
+		n[130],
+		n[131],
+		n[132],
+		n[133],
+		n[134],
+		n[135],
+		n[136],
+		n[137],
+		n[138],
+		n[139],
+		n[140],
+		n[141],
+		n[142],
+		n[143],
+		n[144],
+		n[145],
+		n[146],
+		n[147],
+		n[148],
+		n[149],
+		n[150],
+		n[151],
+		n[152],
+		n[153],
+		n[154],
+		n[155],
+		n[156],
+		n[157],
+		n[158],
+		n[159]:
+		return true
+	}
+	return false
 }
 func peaks1(pts []Date) (a []int) {
 	var b []int
