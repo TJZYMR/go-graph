@@ -205,7 +205,7 @@ func Linepoints(x []Date1) plotter.XYer {
 func (l *Date_struct) PatternM() ([]int, []int, int, bool) {
 	Peaks := Peaks(l.Date_struct)
 	// fmt.Println("Peaks =", Peaks)
-	Troughs := troughs(l.Date_struct)
+	Troughs := Troughs(l.Date_struct)
 	// fmt.Println("Troughs =", Troughs)
 	// l.P = []string{"Upward", "Downward", "Upward", "Downward"}
 	var All_trends_string []string
@@ -410,7 +410,7 @@ func (l *Date_struct) PatternM() ([]int, []int, int, bool) {
 func (l *Date_struct) PatternW() ([]int, []int, int, bool) {
 	Peaks := Peaks(l.Date_struct)
 	// fmt.Println("Peaks =", Peaks)
-	Troughs := troughs(l.Date_struct)
+	Troughs := Troughs(l.Date_struct)
 	// fmt.Println("Troughs =", Troughs)
 	// l.P = []string{"Upward", "Downward", "Upward", "Downward"}
 	var All_trends_string []string
@@ -691,7 +691,7 @@ func Peaks(pts []Date) (a []int) {
 	return b
 }
 
-func troughs(pts []Date) (a []int) {
+func Troughs(pts []Date) (a []int) {
 	var b []int
 	for i := range pts {
 		if pts[i].Value3 == pts[0].Value3 {
